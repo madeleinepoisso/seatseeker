@@ -54,6 +54,12 @@
       <version>2.9.3</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.15.2</version>
+      <!-- Replace with the latest version -->
+    </dependency>
     <!--
            TestNG builds useful functionality on top of JUnit, such as method annotations.
     -->
