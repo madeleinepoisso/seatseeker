@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.server.ticketScraper;
 
 import edu.brown.cs.student.main.server.ticket;
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,9 +8,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class ticketmaster implements scraper {
 
@@ -35,7 +33,6 @@ public class ticketmaster implements scraper {
         return null;
     }
 
-    @Override
     public List<String> getLinksGivenQuery(String query) {
         Document doc = null;
         try {
