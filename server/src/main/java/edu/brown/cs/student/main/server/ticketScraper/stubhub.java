@@ -12,15 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class stubhub implements scraper{
 
     @Override
-    public ticket best(String query) {
-        List<ticket> t = getInfoGivenQuery(query);
-        this.setPrice(t.get(0));
-        System.out.println(t.get(0));
-        return t.get(0);
-    }
-
-    @Override
-    public List<ticket> top5(String query) {
+    public List<ticket> best(String query) {
         List<ticket> t = getInfoGivenQuery(query);
         List<ticket> topFive  = new ArrayList<ticket>();
         for (int i =0;i<5;i++) {
@@ -30,11 +22,12 @@ public class stubhub implements scraper{
         return topFive;
     }
 
+
     public List<ticket> getInfoGivenQuery(String query) {
         Document doc = null;
-        String fullQuerry = "https://www.stubhub.com/secure/search?q=" +query+"&sellSearch=false";
+        String fullQuery = "https://www.stubhub.com/secure/search?q=" +query+"&sellSearch=false";
         try {
-            doc = Jsoup.connect("https://www.stubhub.com/secure/search?q=" +query+"&sellSearch=false").referrer("https://www.stubhub.com/").userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36").get();
+            doc = Jsoup.connect(fullQuery).referrer("https://www.stubhub.com/").userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36").get();
         } catch (IOException e) {
             System.out.println("not working");
         }

@@ -9,6 +9,5 @@ import java.util.List;
  * the different ticketing websites. So far, I've only set up stubhub.
  */
 public interface scraper {
-    ticket best(String query);
-    List<ticket> top5(String query);
+    List<ticket> best(String query);
 }

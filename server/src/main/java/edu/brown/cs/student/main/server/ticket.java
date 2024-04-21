@@ -12,6 +12,8 @@ public class ticket {
         this.date = date;
         this.name = name;
         this.link = link;
+        //city
+        //seat and row
     }
     public String toJSON() {
         return "working on it";
