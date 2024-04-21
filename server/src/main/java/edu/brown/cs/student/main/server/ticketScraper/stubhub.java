@@ -21,7 +21,13 @@ public class stubhub implements scraper{
 
     @Override
     public List<ticket> top5(String query) {
-        return null;
+        List<ticket> t = getInfoGivenQuery(query);
+        List<ticket> topFive  = new ArrayList<ticket>();
+        for (int i =0;i<5;i++) {
+            this.setPrice(t.get(i));
+            topFive.add(t.get(i));
+        }
+        return topFive;
     }
 
     public List<ticket> getInfoGivenQuery(String query) {
@@ -46,8 +52,18 @@ public class stubhub implements scraper{
             ObjectMapper mapper = new ObjectMapper();
             JsonNode node = mapper.readTree(json);
             System.out.println(node.get("grid").get("items").get(0));
-            String priceWFees = node.get("grid").get("items").get(0).get("price").asText();
-            t.price = Integer.parseInt(priceWFees.replaceAll("[^0-9]", ""));
+            Integer amountOfTickets = node.get("grid").get("items").size();
+            int i = 0;
+            while (i<amountOfTickets) {
+                String priceWFees = node.get("grid").get("items").get(i).get("priceWithFees").asText();
+                if(node.get("grid").get("items").get(0).get("availableTickets").asInt() == 0) {
+                    i++;
+                }else {
+                    t.price = Integer.parseInt(priceWFees.replaceAll("[^0-9]", ""));
+                    return;
+                }
+            }
+            t.price=null;
         } catch (Exception e) {
             System.out.println("couldn't find price");
         }
