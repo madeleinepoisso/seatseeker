@@ -1,7 +1,6 @@
 package edu.brown.cs.student.main.server.ticketScraper;
 
 import edu.brown.cs.student.main.server.ticket;
-
 import java.util.List;
 
 /**
@@ -9,5 +8,5 @@ import java.util.List;
  * the different ticketing websites. So far, I've only set up stubhub.
  */
 public interface scraper {
-    List<ticket> best(String query);
+  List<ticket> best(String query);
 }
