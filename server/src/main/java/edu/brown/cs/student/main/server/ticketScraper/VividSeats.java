@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,7 +29,7 @@ public class VividSeats implements scraper {
   }
 
   private void setPriceAndSeat(ticket t) {
-      System.setProperty("webdriver.chrome.driver","\"C:\\Users\\Public\\Desktop\\Google Chrome.lnk\"");
+      System.setProperty("webdriver.chrome.driver","C:\\Users\\mclaw\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
       WebDriver driver = new ChromeDriver();
       driver.get(t.link);
       try {
@@ -37,6 +39,10 @@ public class VividSeats implements scraper {
       }
       String html = driver.getPageSource();
       Document document = Jsoup.parse(html);
+      System.out.println(document);
+      Element listingPrice = document.selectFirst("html[len=en]");
+      String price = listingPrice.html();
+      System.out.println(price);
       driver.quit();
   }
 
