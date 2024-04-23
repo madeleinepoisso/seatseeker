@@ -1,13 +1,11 @@
 package edu.brown.cs.student.main.server;
 
-import java.util.Date;
-
-public class ticket {
+public class Ticket {
     public Integer price;
     public String date;
     public String name;
     public String link;
-    public ticket(Integer price, String date,String name,String link) {
+    public Ticket(Integer price, String date, String name, String link) {
         this.price = price;
         this.date = date;
         this.name = name;

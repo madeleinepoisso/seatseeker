@@ -1,5 +1,5 @@
 package edu.brown.cs.student.main.server.ticketScraper;
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,9 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class stubhub implements scraper{
 
     @Override
-    public List<ticket> best(String query) {
-        List<ticket> t = getInfoGivenQuery(query);
-        List<ticket> topFive  = new ArrayList<ticket>();
+    public List<Ticket> best(String query) {
+        List<Ticket> t = getInfoGivenQuery(query);
+        List<Ticket> topFive  = new ArrayList<Ticket>();
         for (int i =0;i<5;i++) {
             this.setPrice(t.get(i));
             topFive.add(t.get(i));
@@ -23,7 +23,7 @@ public class stubhub implements scraper{
     }
 
 
-    public List<ticket> getInfoGivenQuery(String query) {
+    public List<Ticket> getInfoGivenQuery(String query) {
         Document doc = null;
         String fullQuery = "https://www.stubhub.com/secure/search?q=" +query+"&sellSearch=false";
         try {
@@ -33,10 +33,10 @@ public class stubhub implements scraper{
         }
         Element element = doc.selectFirst("script[id=index-data]");
         String json = element.html();
-        List<ticket> tickets = getInfoFromJSON(json);
+        List<Ticket> tickets = getInfoFromJSON(json);
         return tickets;
     }
-    private void setPrice(ticket t) {
+    private void setPrice(Ticket t) {
         Document doc = null;
         try {
             doc = Jsoup.connect(t.link).referrer("https://www.stubhub.com/").userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36").get();
@@ -61,18 +61,18 @@ public class stubhub implements scraper{
             System.out.println("couldn't find price");
         }
     }
-    private List<ticket> getInfoFromJSON(String json) {
+    private List<Ticket> getInfoFromJSON(String json) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(json);
             JsonNode events = jsonNode.get("eventGrids");
-            List<ticket> tickets = new ArrayList<ticket>();
+            List<Ticket> tickets = new ArrayList<Ticket>();
             Integer numberOfTix = events.get("2").get("items").size();
             for (int i=0;i<numberOfTix;i++) {
                 String link = "https://www.stubhub.com"+events.get("2").get("items").get(i).get("url").asText();
                 String name = events.get("2").get("items").get(i).get("name").asText();
                 String date = events.get("2").get("items").get(i).get("formattedDate").asText();
-                ticket t = new ticket(null,date,name,link);
+                Ticket t = new Ticket(null,date,name,link);
                 tickets.add(t);
             }
             return tickets;

@@ -1,9 +1,8 @@
 package edu.brown.cs.student.main.server.ticketScraper;
 
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,16 +11,16 @@ import java.util.List;
 public class SeetGeek implements scraper{
 
     @Override
-    public ticket best(String query) {
+    public Ticket best(String query) {
         this.getInfoGivenQuery(query);
         return null;
     }
 
     @Override
-    public List<ticket> top5(String query) {
+    public List<Ticket> top5(String query) {
         return null;
     }
-    public List<ticket> getInfoGivenQuery(String query) {
+    public List<Ticket> getInfoGivenQuery(String query) {
         Document doc = null;
         String fullQuery = "https://seatgeek.com/search?f=1&search=" +query+"&ui_origin=home_search";
         String otherQuery = "https://seatgeek.com/copa-america-tickets/international-soccer/2024-06-25-8-30-pm/6308596";
@@ -32,7 +31,7 @@ public class SeetGeek implements scraper{
             System.out.println("not working");
         }
         System.out.println(doc);
-        return new ArrayList<ticket>();
+        return new ArrayList<Ticket>();
     }
     public static void main(String[] args) {
         scraper stubhub = new SeetGeek();

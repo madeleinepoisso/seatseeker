@@ -2,7 +2,7 @@ package edu.brown.cs.student.main.server.ticketScraper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -13,16 +13,16 @@ import java.util.List;
 public class VividSeats implements scraper{
 
     @Override
-    public ticket best(String query) {
+    public Ticket best(String query) {
         this.getInfoGivenQuery(query);
         return null;
     }
 
     @Override
-    public List<ticket> top5(String query) {
+    public List<Ticket> top5(String query) {
         return null;
     }
-    public List<ticket> getInfoGivenQuery(String query) {
+    public List<Ticket> getInfoGivenQuery(String query) {
         Document doc = null;
         String fullQuery = "https://www.vividseats.com/search?searchTerm=" +query;
         String otherQuery = "";
@@ -47,7 +47,7 @@ public class VividSeats implements scraper{
         } catch (Exception e) {
             System.out.println(e);
         }
-        return new ArrayList<ticket>();
+        return new ArrayList<Ticket>();
     }
     public static void main(String[] args) {
         scraper stubhub = new VividSeats();

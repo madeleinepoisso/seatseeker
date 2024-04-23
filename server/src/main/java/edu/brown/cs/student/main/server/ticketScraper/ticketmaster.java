@@ -1,6 +1,6 @@
 package edu.brown.cs.student.main.server.ticketScraper;
 
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ticketmaster implements scraper {
 
     @Override
-    public ticket best(String query) {
+    public Ticket best(String query) {
         String link = getLinksGivenQuery(query).get(0);
         System.out.println(link);
         Document doc = null;
@@ -29,7 +29,7 @@ public class ticketmaster implements scraper {
     }
 
     @Override
-    public List<ticket> top5(String query) {
+    public List<Ticket> top5(String query) {
         return null;
     }
 
