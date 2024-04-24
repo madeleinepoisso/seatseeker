@@ -1,7 +1,15 @@
 package edu.brown.cs.student.main.server.ticketScraper;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
+/**
+ * This class contains helper functions which allow the conversion of strings with different formats to military time
+ * also in string format
+ */
 public class DateConverter {
+    /**
+     * Used for seat geek
+     * @param timeString
+     * @return
+     */
     public static String convertToMilitaryTime(String timeString) {
         String[] parts = timeString.toLowerCase().split(":|(?<=\\d)(?=\\D)");
 
@@ -19,6 +27,12 @@ public class DateConverter {
         // Format the time in military time (24-hour clock)
         return String.format("%02d:%02d", hours, minutes);
     }
+
+    /**
+     * Used for stubhub.
+     * @param timeString
+     * @return
+     */
     public static String convertSpace(String timeString){
         // Split the time string into hours, minutes, and period (am/pm)
         String[] parts = timeString.split("[:\\s]+");

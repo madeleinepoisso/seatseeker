@@ -19,6 +19,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class VividSeats implements scraper {
+    /**
+     * This map goes from full month to abbreviated in three letters month.
+     */
     static final Map<String,String> fullToAbbrev;
     static {
         fullToAbbrev = new HashMap<>();
@@ -35,6 +38,12 @@ public class VividSeats implements scraper {
         fullToAbbrev.put("March","Mar");
         fullToAbbrev.put("September","Sep");
     }
+
+    /**
+     * The best method returns the best tickets for the query limited to approx 20
+     * @param query
+     * @return
+     */
   @Override
   public List<ticket> best(String query) {
     List<ticket> t = this.getInfoGivenQuery(query);
@@ -44,6 +53,10 @@ public class VividSeats implements scraper {
     System.out.println(t);
     return t;
   }
+
+    /**
+     * This helper resets the cookies to prevent bot detection
+     */
     private void resetCookies() {
         // Set Chrome options
         ChromeOptions options = new ChromeOptions();
@@ -64,6 +77,13 @@ public class VividSeats implements scraper {
         // Quit WebDriver
         driver.quit();
     }
+
+    /**
+     * This function sets the price and seat for a ticket given its link. If we can't laod the website than we
+     * simply don't change anything as a baseline price has already been added. Usually only works for the first
+     * ticket in the list.
+     * @param t
+     */
   private void setPriceAndSeat(ticket t) {
             resetCookies();
             try {
@@ -98,6 +118,12 @@ public class VividSeats implements scraper {
         }
   }
 
+    /**
+     * This is called to get the info given a query. It can set everything except for the seat. The price might
+     * not be found or could be innacurate but so far it's been working pretty decently.
+     * @param query
+     * @return
+     */
   public List<ticket> getInfoGivenQuery(String query) {
     List<ticket> tickets = new ArrayList<ticket>();
     Document doc = null;
@@ -146,7 +172,7 @@ public class VividSeats implements scraper {
         date = fullToAbbrev.get(month.charAt(0) + month.substring(1).toLowerCase()) + " " + zonedTime.getDayOfMonth();
         String time =
             String.valueOf(zonedTime.getHour()) + ":" + String.valueOf(zonedTime.getMinute());
-        ticket t = new ticket(minPrice, date, name, link, time, location, null);
+        ticket t = new ticket(minPrice, date, name, link, time, location, "unknown");//we see that it sets everything but the seat
         tickets.add(t);
       }
     } catch (Exception e) {
@@ -155,6 +181,10 @@ public class VividSeats implements scraper {
     return tickets;
   }
 
+    /**
+     * I just use this for testing
+     * @param args
+     */
   public static void main(String[] args) {
     scraper vividSeats = new VividSeats();
     vividSeats.best("argentina%20vs%20chile");

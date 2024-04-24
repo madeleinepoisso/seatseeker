@@ -111,6 +111,10 @@ public class stubhub implements scraper {
     return null;
   }
 
+  /**
+   * I've just been using main to test, we don't actually need it.
+   * @param args
+   */
   public static void main(String[] args) {
     scraper stubhub = new stubhub();
     stubhub.best("argentina%20vs%20Chile");

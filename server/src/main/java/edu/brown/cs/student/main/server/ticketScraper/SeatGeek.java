@@ -13,25 +13,41 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class SeetGeek implements scraper {
-
+/**
+ * The SeatGeek class is a scraper that returns the best tickets given a query. The downside to this scraper is that
+ * the seatgeek bot detection is pretty good, so I wasn't able to get the actual seats, but it does get the price pretty
+ * reliably.
+ */
+public class SeatGeek implements scraper {
+  /**
+   * This method returns a list of tickets that are sorted in the same way that they appear on the websites
+   * @param query whatever the user searched.
+   * @return list of tickets
+   */
   @Override
   public List<ticket> best(String query) {
-    this.getInfoGivenQuery(query);
-    return null;
+    List<ticket> tickets = this.getInfoGivenQuery(query);
+    return tickets;
   }
 
+  /**
+   * This function sets all the info given a query. It does this by using selenium and waiting for the page to
+   * load completely before parsing the html and setting the properties of the ticket.
+   * @param query
+   * @return
+   */
   public List<ticket> getInfoGivenQuery(String query) {
     List<ticket> tickets = new ArrayList<>();
     String fullQuery = "https://seatgeek.com/search?f=1&search=" + query + "&ui_origin=home_search";
-    System.setProperty("webdriver.chrome.driver","C:\\Users\\mclaw\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+    //The following lines setup selenium so that it isn't detected heavily by the antibot measures.
+    System.setProperty("webdriver.chrome.driver","C:\\Users\\mclaw\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");//tells selenium where the driver is in my computer
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--headless"); // Run in headless mode
     options.addArguments("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"); // Set user-agent
     WebDriver driver = new ChromeDriver();
-    driver.get(fullQuery);
+    driver.get(fullQuery);//this actually searches the query.
     try {
-      Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 4000));
+      Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 4000));//sleeps for a time between 2 and 4s to ensure that the page loads fully.
     } catch (InterruptedException e){
       e.printStackTrace();
     }
@@ -56,17 +72,14 @@ public class SeetGeek implements scraper {
         city = local[2];
         price = Integer.parseInt(local[0].replace("$",""));
       }
-
-//      Integer price = Integer.parseInt(data.split("·")[0].replace("$",""));
       tickets.add(new ticket(price,date,name,link,time,city,"Unknown"));
     }
-    System.out.println(tickets);
     driver.quit();
     return tickets;
   }
 
   public static void main(String[] args) {
-    scraper stubhub = new SeetGeek();
-    stubhub.best("argentina%20vs%20chile");
+    scraper SeatGeek = new SeatGeek();
+    SeatGeek.best("argentina%20vs%20chile");
   }
 }
