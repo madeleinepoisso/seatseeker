@@ -18,9 +18,6 @@ public class ticket {
     this.time = time;
     this.city = city;
     this.seat = seat;
-
-    // city
-    // seat and row
   }
 
   public String toJSON() {

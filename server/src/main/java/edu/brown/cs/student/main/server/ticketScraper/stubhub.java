@@ -64,7 +64,7 @@ public class stubhub implements scraper {
       Integer amountOfTickets = node.get("grid").get("items").size();
       int i = 0;
       while (i < amountOfTickets) {
-        String priceWFees = node.get("grid").get("items").get(i).get("priceWithFees").asText();
+        String priceWFees = node.get("grid").get("items").get(i).get("price").asText();
         if (node.get("grid").get("items").get(i).get("availableTickets").asInt() == 0
             || node.get("grid").get("items").get(i).has("sectionMapName") == false
             || node.get("grid").get("items").get(i).has("row") == false) {
@@ -72,9 +72,9 @@ public class stubhub implements scraper {
         } else {
           t.price = Integer.parseInt(priceWFees.replaceAll("[^0-9]", ""));
           t.seat =
-              "section-"
+              "Section "
                   + node.get("grid").get("items").get(i).get("sectionMapName").asText()
-                  + " row-"
+                  + " Row "
                   + node.get("grid").get("items").get(i).get("row").asText();
           return;
         }
@@ -99,8 +99,8 @@ public class stubhub implements scraper {
             "https://www.stubhub.com" + events.get("2").get("items").get(i).get("url").asText();
         String name = events.get("2").get("items").get(i).get("name").asText();
         String date = events.get("2").get("items").get(i).get("formattedDate").asText();
-        String time = events.get("2").get("items").get(i).get("formattedTime").asText();
-        String city = events.get("2").get("items").get(i).get("formattedVenueLocation").asText();
+        String time = DateConverter.convertSpace(events.get("2").get("items").get(i).get("formattedTime").asText());
+        String city = events.get("2").get("items").get(i).get("formattedVenueLocation").asText().replace(", USA","");
         ticket t = new ticket(null, date, name, link, time, city, null);
         tickets.add(t);
       }
