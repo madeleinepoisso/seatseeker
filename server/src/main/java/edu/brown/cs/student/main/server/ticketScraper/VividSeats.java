@@ -187,6 +187,6 @@ public class VividSeats implements Scraper {
      */
   public static void main(String[] args) {
     Scraper vividSeats = new VividSeats();
-    vividSeats.best("argentina%20vs%20chile");
+    vividSeats.best("boston%20celtics");
   }
 }
