@@ -3,7 +3,7 @@ package edu.brown.cs.student.main.server;
 /**
  * This class represents each ticket.
  */
-public class ticket {
+public class Ticket {
   public Integer price;
   public String date;
   public String name;
@@ -12,7 +12,7 @@ public class ticket {
   public String city;
   public String seat;
 
-  public ticket(
+  public Ticket(
       Integer price, String date, String name, String link, String time, String city, String seat) {
     this.price = price;//price is simply an integer stating what the price is
     this.date = date;// the date is in the format: "Month(only first three letters) day(number)"

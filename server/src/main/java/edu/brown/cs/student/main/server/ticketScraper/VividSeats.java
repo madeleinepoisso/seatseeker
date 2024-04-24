@@ -2,7 +2,7 @@ package edu.brown.cs.student.main.server.ticketScraper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class VividSeats implements scraper {
+public class VividSeats implements Scraper {
     /**
      * This map goes from full month to abbreviated in three letters month.
      */
@@ -45,8 +45,8 @@ public class VividSeats implements scraper {
      * @return
      */
   @Override
-  public List<ticket> best(String query) {
-    List<ticket> t = this.getInfoGivenQuery(query);
+  public List<Ticket> best(String query) {
+    List<Ticket> t = this.getInfoGivenQuery(query);
     if (t.size()>0){
         this.setPriceAndSeat(t.get(0));
     }
@@ -84,7 +84,7 @@ public class VividSeats implements scraper {
      * ticket in the list.
      * @param t
      */
-  private void setPriceAndSeat(ticket t) {
+  private void setPriceAndSeat(Ticket t) {
             resetCookies();
             try {
                 Thread.sleep(3000);
@@ -124,8 +124,8 @@ public class VividSeats implements scraper {
      * @param query
      * @return
      */
-  public List<ticket> getInfoGivenQuery(String query) {
-    List<ticket> tickets = new ArrayList<ticket>();
+  public List<Ticket> getInfoGivenQuery(String query) {
+    List<Ticket> tickets = new ArrayList<Ticket>();
     Document doc = null;
     String fullQuery = "https://www.vividseats.com/search?searchTerm=" + query;
     try {
@@ -172,7 +172,7 @@ public class VividSeats implements scraper {
         date = fullToAbbrev.get(month.charAt(0) + month.substring(1).toLowerCase()) + " " + zonedTime.getDayOfMonth();
         String time =
             String.valueOf(zonedTime.getHour()) + ":" + String.valueOf(zonedTime.getMinute());
-        ticket t = new ticket(minPrice, date, name, link, time, location, "unknown");//we see that it sets everything but the seat
+        Ticket t = new Ticket(minPrice, date, name, link, time, location, "unknown");//we see that it sets everything but the seat
         tickets.add(t);
       }
     } catch (Exception e) {
@@ -186,7 +186,7 @@ public class VividSeats implements scraper {
      * @param args
      */
   public static void main(String[] args) {
-    scraper vividSeats = new VividSeats();
+    Scraper vividSeats = new VividSeats();
     vividSeats.best("argentina%20vs%20chile");
   }
 }

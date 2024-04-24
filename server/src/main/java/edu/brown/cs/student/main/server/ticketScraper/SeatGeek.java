@@ -1,6 +1,6 @@
 package edu.brown.cs.student.main.server.ticketScraper;
 
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,15 +18,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
  * the seatgeek bot detection is pretty good, so I wasn't able to get the actual seats, but it does get the price pretty
  * reliably.
  */
-public class SeatGeek implements scraper {
+public class SeatGeek implements Scraper {
   /**
    * This method returns a list of tickets that are sorted in the same way that they appear on the websites
    * @param query whatever the user searched.
    * @return list of tickets
    */
   @Override
-  public List<ticket> best(String query) {
-    List<ticket> tickets = this.getInfoGivenQuery(query);
+  public List<Ticket> best(String query) {
+    List<Ticket> tickets = this.getInfoGivenQuery(query);
     return tickets;
   }
 
@@ -36,8 +36,8 @@ public class SeatGeek implements scraper {
    * @param query
    * @return
    */
-  public List<ticket> getInfoGivenQuery(String query) {
-    List<ticket> tickets = new ArrayList<>();
+  public List<Ticket> getInfoGivenQuery(String query) {
+    List<Ticket> tickets = new ArrayList<>();
     String fullQuery = "https://seatgeek.com/search?f=1&search=" + query + "&ui_origin=home_search";
     //The following lines setup selenium so that it isn't detected heavily by the antibot measures.
     System.setProperty("webdriver.chrome.driver","C:\\Users\\mclaw\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");//tells selenium where the driver is in my computer
@@ -72,14 +72,14 @@ public class SeatGeek implements scraper {
         city = local[2];
         price = Integer.parseInt(local[0].replace("$",""));
       }
-      tickets.add(new ticket(price,date,name,link,time,city,"Unknown"));
+      tickets.add(new Ticket(price,date,name,link,time,city,"Unknown"));
     }
     driver.quit();
     return tickets;
   }
 
   public static void main(String[] args) {
-    scraper SeatGeek = new SeatGeek();
+    Scraper SeatGeek = new SeatGeek();
     SeatGeek.best("argentina%20vs%20chile");
   }
 }

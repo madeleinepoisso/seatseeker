@@ -2,7 +2,7 @@ package edu.brown.cs.student.main.server.ticketScraper;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,19 +10,33 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class stubhub implements scraper {
-
+/**
+ * This scraper actually fully works!!!!!!
+ */
+public class Stubhub implements Scraper {
+  /**
+   * This method returns a list of the best tickets. Limited to 20, but will result in as many are returned given
+   * the query.
+   * @param query any input given by
+   * @return
+   */
   @Override
-  public List<ticket> best(String query) {
-    List<ticket> t = getInfoGivenQuery(query);
-    for (int i = 0; i < t.size(); i++) {
+  public List<Ticket> best(String query) {
+    List<Ticket> t = getInfoGivenQuery(query);
+    for (int i = 0; i < t.size(); i++) {//loops through all the tickets that have everything but prices and seats
       this.setPriceAndSeat(t.get(i));
     }
     System.out.println(t);
     return t;
   }
 
-  public List<ticket> getInfoGivenQuery(String query) {
+  /**
+   * This gets info given query excluding the seat and price. It gets the appropriate json and then
+   * uses the helper method to use that json to return the appropriate tickets.
+   * @param query
+   * @return
+   */
+  public List<Ticket> getInfoGivenQuery(String query) {
     Document doc = null;
     String fullQuery = "https://www.stubhub.com/secure/search?q=" + query + "&sellSearch=false";
     try {
@@ -37,7 +51,7 @@ public class stubhub implements scraper {
     }
     Element element = doc.selectFirst("script[id=index-data]");
     String json = element.html();
-    List<ticket> tickets = getInfoFromJSON(json);
+    List<Ticket> tickets = getInfoFromJSON(json);
     return tickets;
   }
 
@@ -47,7 +61,7 @@ public class stubhub implements scraper {
    *
    * @param t
    */
-  private void setPriceAndSeat(ticket t) {
+  private void setPriceAndSeat(Ticket t) {
     Document doc = null;
     JsonNode node = null;
     try {
@@ -87,21 +101,27 @@ public class stubhub implements scraper {
     }
   }
 
-  private List<ticket> getInfoFromJSON(String json) {
+  /**
+   * This function takes the json with all the info and parses it and gets the relevant information
+   * @param json a string representing a json
+   * @return
+   */
+  private List<Ticket> getInfoFromJSON(String json) {
     try {
       ObjectMapper mapper = new ObjectMapper();
       JsonNode jsonNode = mapper.readTree(json);
       JsonNode events = jsonNode.get("eventGrids");
-      List<ticket> tickets = new ArrayList<ticket>();
+      List<Ticket> tickets = new ArrayList<Ticket>();
       Integer numberOfTix = events.get("2").get("items").size();
       for (int i = 0; i < numberOfTix; i++) {
+        //get all the different properties from the place where the tickets are stored.
         String link =
             "https://www.stubhub.com" + events.get("2").get("items").get(i).get("url").asText();
         String name = events.get("2").get("items").get(i).get("name").asText();
         String date = events.get("2").get("items").get(i).get("formattedDate").asText();
         String time = DateConverter.convertSpace(events.get("2").get("items").get(i).get("formattedTime").asText());
         String city = events.get("2").get("items").get(i).get("formattedVenueLocation").asText().replace(", USA","");
-        ticket t = new ticket(null, date, name, link, time, city, null);
+        Ticket t = new Ticket(null, date, name, link, time, city, null);
         tickets.add(t);
       }
       return tickets;
@@ -116,7 +136,7 @@ public class stubhub implements scraper {
    * @param args
    */
   public static void main(String[] args) {
-    scraper stubhub = new stubhub();
+    Scraper stubhub = new Stubhub();
     stubhub.best("argentina%20vs%20Chile");
   }
 }
