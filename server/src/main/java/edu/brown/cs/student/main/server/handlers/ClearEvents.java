@@ -2,17 +2,16 @@ package edu.brown.cs.student.main.server.handlers;
 
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class getPinsHandler implements Route {
+public class ClearEvents implements Route {
 
   public StorageInterface storageHandler;
 
-  public getPinsHandler(StorageInterface storageHandler) {
+  public ClearEvents(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -28,21 +27,15 @@ public class getPinsHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      if (uid == null || uid.isEmpty()) {
-        return Utils.toMoshiJson(
-            Map.of("status", "failure", "message", "User ID (uid) is required."));
-      }
-
-      List<Map<String, Object>> pins = storageHandler.getCollection(uid);
-      if (pins.isEmpty()) {
-        return Utils.toMoshiJson(
-            Map.of("status", "success", "message", "No pins found for user.", "data", pins));
-      } else {
-        return Utils.toMoshiJson(Map.of("status", "success", "data", pins));
-      }
+      this.storageHandler.clearUser(uid);
+      responseMap.put("response_type", "success");
     } catch (Exception e) {
+      // error likely occurred in the storage handler
       e.printStackTrace();
-      return Utils.toMoshiJson(Map.of("status", "failure", "message", e.getMessage()));
+      responseMap.put("response_type", "failure");
+      responseMap.put("error", e.getMessage());
     }
+
+    return Utils.toMoshiJson(responseMap);
   }
 }

@@ -2,11 +2,10 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.handlers.AddPinsHandler;
-import edu.brown.cs.student.main.server.handlers.ClearPins;
-import edu.brown.cs.student.main.server.handlers.GeoDataHandler;
+import edu.brown.cs.student.main.server.handlers.AddEventsHandler;
+import edu.brown.cs.student.main.server.handlers.ClearEvents;
 import edu.brown.cs.student.main.server.handlers.KeyWordSearchHandler;
-import edu.brown.cs.student.main.server.handlers.getPinsHandler;
+import edu.brown.cs.student.main.server.handlers.getEventsHandler;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -31,10 +30,9 @@ public class Server {
     try {
       firebaseUtils = new FirebaseUtilities();
 
-      Spark.get("add-pins", new AddPinsHandler(firebaseUtils));
-      Spark.get("list-pins", new getPinsHandler(firebaseUtils));
-      Spark.get("clear-pins", new ClearPins(firebaseUtils));
-      Spark.get("geo-data", new GeoDataHandler());
+      Spark.get("add-events", new AddEventsHandler(firebaseUtils));
+      Spark.get("list-events", new getEventsHandler(firebaseUtils));
+      Spark.get("clear-events", new ClearEvents(firebaseUtils));
       Spark.get("keyword", new KeyWordSearchHandler());
 
       Spark.notFound(

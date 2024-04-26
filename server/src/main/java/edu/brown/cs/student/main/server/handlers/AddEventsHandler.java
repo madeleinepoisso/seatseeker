@@ -7,11 +7,11 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class AddPinsHandler implements Route {
+public class AddEventsHandler implements Route {
 
   public StorageInterface storageHandler;
 
-  public AddPinsHandler(StorageInterface storageHandler) {
+  public AddEventsHandler(StorageInterface storageHandler) {
     this.storageHandler = storageHandler;
   }
 
@@ -27,11 +27,13 @@ public class AddPinsHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String pinId = request.queryParams("pinId");
-      double lat = Double.parseDouble(request.queryParams("lat"));
-      double lng = Double.parseDouble(request.queryParams("lng"));
+      String eventId = request.queryParams("eventID");
+      String name = request.queryParams("name");
+      String city = request.queryParams("city");
+      String date = request.queryParams("date");
+      String time = request.queryParams("time");
 
-      storageHandler.addPin(uid, pinId, lng, lat);
+      storageHandler.addEvent(uid, eventId, name, date, time, city);
       responseMap.put("status", "success");
     } catch (Exception e) {
       e.printStackTrace();
