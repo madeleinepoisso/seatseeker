@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ticketmaster implements scraper {
+public class Ticketmaster implements Scraper {
 
   @Override
   public List<Ticket> best(String query) {
@@ -51,7 +51,7 @@ public class ticketmaster implements scraper {
   }
 
   public static void main(String[] args) {
-    scraper ticketmaster = new ticketmaster();
+    Scraper ticketmaster = new Ticketmaster();
     ticketmaster.best("argentina%20vs%20chile");
   }
 }
