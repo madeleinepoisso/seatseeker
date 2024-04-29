@@ -11,7 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-public class stubhub implements scraper {
+public class Stubhub implements Scraper {
 
   @Override
   public List<Ticket> best(String query) {
@@ -139,7 +139,7 @@ public class stubhub implements scraper {
 
   public static void main(String[] args) {
     List<Event> eventList = new ArrayList<>();
-    stubhub stubhub = new stubhub();
+    Stubhub stubhub = new Stubhub();
     //stubhub.best("boston%20celtics");
     stubhub.eventUpdate(stubhub.best("boston%20celtics"),eventList);
     for (Event event:eventList){
