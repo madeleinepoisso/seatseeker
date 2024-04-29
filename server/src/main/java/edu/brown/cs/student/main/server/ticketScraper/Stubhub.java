@@ -111,7 +111,7 @@ public class Stubhub implements Scraper {
       ObjectMapper mapper = new ObjectMapper();
       JsonNode jsonNode = mapper.readTree(json);
       JsonNode events = jsonNode.get("eventGrids");
-      List<Ticket> tickets = new ArrayList<Ticket>();
+      List<Ticket> tickets = new ArrayList<>();
       Integer numberOfTix = events.get("2").get("items").size();
       for (int i = 0; i < numberOfTix; i++) {
         //get all the different properties from the place where the tickets are stored.
@@ -137,6 +137,6 @@ public class Stubhub implements Scraper {
    */
   public static void main(String[] args) {
     Scraper stubhub = new Stubhub();
-    stubhub.best("argentina%20vs%20Chile");
+    stubhub.best("inter%20miami");
   }
 }

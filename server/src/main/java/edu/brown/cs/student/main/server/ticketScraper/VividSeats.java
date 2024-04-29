@@ -140,7 +140,6 @@ public class VividSeats implements Scraper {
       System.out.println("error getting query");
     }
     String json = doc.selectFirst("script[id=__NEXT_DATA__]").html();
-    System.out.println(json);
     try {
       ObjectMapper mapper = new ObjectMapper();
       JsonNode node = mapper.readTree(json);
@@ -155,7 +154,6 @@ public class VividSeats implements Scraper {
         return null;
       }
       Integer numberOfTix = items.size();
-      System.out.println(items);
       for (int i = 0; i < numberOfTix; i++) {
         JsonNode ticketNode = items.get(i);
         String link = "https://vividseats.com" + ticketNode.get("webPath").asText();
@@ -166,7 +164,6 @@ public class VividSeats implements Scraper {
                 + ticketNode.get("venue").get("state").asText();
         String date = ticketNode.get("localDate").asText();
         Integer minPrice = Integer.parseInt(ticketNode.get("minPrice").asText());
-        System.out.println(minPrice);
         ZonedDateTime zonedTime = ZonedDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME);
         String month = zonedTime.getMonth().toString();
         date = fullToAbbrev.get(month.charAt(0) + month.substring(1).toLowerCase()) + " " + zonedTime.getDayOfMonth();
@@ -187,6 +184,6 @@ public class VividSeats implements Scraper {
      */
   public static void main(String[] args) {
     Scraper vividSeats = new VividSeats();
-    vividSeats.best("boston%20celtics");
+    vividSeats.best("inter%20miami");
   }
 }

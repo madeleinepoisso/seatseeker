@@ -62,7 +62,7 @@ public class FirebaseUtilities implements StorageInterface {
     eventData.put("city", city);
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference events = db.collection("users").document(uid).collection("events");
-    events.document(Pinid).set(eventData);
+    events.document(eventid).set(eventData);
   }
 
   /**
