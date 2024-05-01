@@ -16,7 +16,7 @@ public class EventSorter {
         }
     }
 
-    public static void bucketSort(float[] arr) {
+    public static ArrayList bucketSort(float[] arr) {
         int n = arr.length;
 
         // 1) Create n empty buckets
@@ -51,6 +51,10 @@ public class EventSorter {
                 index++;
             }
         }
+        return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(arr, 0, 5)));
+    }
+
+
 
 
 
