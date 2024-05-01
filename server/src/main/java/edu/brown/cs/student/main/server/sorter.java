@@ -23,13 +23,11 @@ public class EventSorter {
     public static ArrayList bucketSort(float[] arr) {
         int n = arr.length;
 
-        // 1) Create n empty buckets
         List<Float>[] buckets = new ArrayList[4];
         for (int i = 0; i < buckets.length; i++) {
             buckets[i] = new ArrayList<>();
         }
 
-        // 2) Put array elements in different buckets
         for (int i = 0; i < n; i++) {
             int val = 0
             if (arr[i].data) {
@@ -58,33 +56,3 @@ public class EventSorter {
         return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(arr, 0, 5)));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Driver program to test above function
-int main() {
-    float arr[] = {0.897, 0.565, 0.656, 0.1234, 0.665, 0.3434};
-    int n = sizeof(arr) / sizeof(arr[0]);
-    bucketSort(arr, n);
-
-    cout << "Sorted array is \n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
-    return 0;
-}
