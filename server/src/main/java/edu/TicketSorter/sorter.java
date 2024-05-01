@@ -1,46 +1,72 @@
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List
 
 public class EventSorter {
 
-// Insertion sort function to sort individual buckets
-void insertionSort(vector<float>& bucket) {
-    for (int i = 1; i < bucket.size(); ++i) {
-        float key = bucket[i];
-        int j = i - 1;
-        while (j >= 0 && bucket[j] > key) {
-            bucket[j + 1] = bucket[j];
-            j--;
-        }
-        bucket[j + 1] = key;
-    }
-}
-
-// Function to sort arr[] of size n using bucket sort
-void bucketSort(float arr[], int n) {
-    // 1) Create n empty buckets
-    vector<float> b[n];
-
-    // 2) Put array elements in different buckets
-    for (int i = 0; i < n; i++) {
-        int bi = n * arr[i];
-        b[bi].push_back(arr[i]);
-    }
-
-    // 3) Sort individual buckets using insertion sort
-    for (int i = 0; i < n; i++) {
-        insertionSort(b[i]);
-    }
-
-    // 4) Concatenate all buckets into arr[]
-    int index = 0;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < b[i].size(); j++) {
-            arr[index++] = b[i][j];
+    public static void insertionSort(List<Item> bucket) {
+        for (int i = 1; i < bucket.size(); ++i) {
+            Event key = bucket.get(i);
+            float keyPrice = key.price();
+            int j = i - 1;
+            while (j >= 0 && bucket.get(j).price() > keyPrice) {
+                bucket.set(j + 1, bucket.get(j));
+                j--;
+            }
+            bucket.set(j + 1, key);
         }
     }
-}
-}
+
+    public static void bucketSort(float[] arr) {
+        int n = arr.length;
+
+        // 1) Create n empty buckets
+        List<Float>[] buckets = new ArrayList[4];
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = new ArrayList<>();
+        }
+
+        // 2) Put array elements in different buckets
+        for (int i = 0; i < n; i++) {
+            int val = 0
+            if (arr[i].data) {
+                val++;
+            }
+            if (arr[i].time) {
+                val++;
+            }
+            if (arr[i].city) {
+                val++;
+            }
+            buckets[val].add(arr[i]);
+        }
+
+        for (int i = 0; i < buckets.length; i++) {
+            insertionSort(buckets[i]);
+        }
+
+        int index = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            for (int j = 0; j < buckets[i].size(); j++) {
+                arr[index] = buckets[i].get(j);
+                index++;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Driver program to test above function
 int main() {
