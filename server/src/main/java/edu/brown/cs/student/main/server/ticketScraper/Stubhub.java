@@ -65,7 +65,7 @@ public class Stubhub implements Scraper {
       Integer amountOfTickets = node.get("grid").get("items").size();
       int i = 0;
       while (i < amountOfTickets) {
-        String priceWFees = node.get("grid").get("items").get(i).get("priceWithFees").asText();
+        String priceWFees = node.get("grid").get("items").get(i).get("price").asText();
         if (node.get("grid").get("items").get(i).get("availableTickets").asInt() == 0
             || node.get("grid").get("items").get(i).has("sectionMapName") == false
             || node.get("grid").get("items").get(i).has("row") == false) {
@@ -112,38 +112,8 @@ public class Stubhub implements Scraper {
     return null;
   }
 
-  private void eventUpdate(List<Ticket> ticketList, List<Event> eventList){
-    int checker;
-
-    for (Ticket ticket : ticketList){
-      checker = 0;
-      for (Event event : eventList){
-        if(event.ticketAlreadyAdded(ticket)){
-          checker = 1;
-          break;
-        }
-        else if(event.ticketAddBoolean(ticket)){
-          checker = 1;
-          event.tickets.add(ticket);
-          break;
-        }
-      }
-      if (checker != 1) {
-        Event nameForEvent = new Event(ticket.date, ticket.time, ticket.city, ticket.name);
-        nameForEvent.tickets.add(ticket);
-        eventList.add(nameForEvent);
-      }
-      checker = 0;
-    }
-  }
-
   public static void main(String[] args) {
     List<Event> eventList = new ArrayList<>();
     Stubhub stubhub = new Stubhub();
-    //stubhub.best("boston%20celtics");
-    stubhub.eventUpdate(stubhub.best("boston%20celtics"),eventList);
-    for (Event event:eventList){
-      System.out.println(event.name);
-    }
   }
 }

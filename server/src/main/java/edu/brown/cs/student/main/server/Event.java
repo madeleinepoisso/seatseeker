@@ -42,7 +42,11 @@ public class Event {
         }
         return false;
     }
-
+    public Integer price(){
+        //need to fill this in to return the lowest price out of the tickets. should just be a simple for loop.
+        //could also store the tickets in the list in the order of a min heap to achieve faster retrieval.
+        return 200;
+    }
     //BELOW IS CODE TO BE ADDED TO WHEREVER WE COMPILING DIFFERENT TICKETING SERVICES
     //will also be assuming we are using a list of events to keep track
     /**
