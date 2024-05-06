@@ -14,29 +14,7 @@ import {
 } from "../utils/overlay";
 import { ControlledInput } from "./auth/ControlledInput";
 import { addPins, getPins, clearPins } from "../utils/api";
-import { useRef } from "react";
-import { Marker } from "react-map-gl";
-import pinImage from "./pin_image.jpg";
 import { getLoginCookie } from "../utils/cookie";
-
-const MAPBOX_API_KEY = process.env.MAPBOX_TOKEN;
-if (!MAPBOX_API_KEY) {
-  console.error("Mapbox API key not found. Please add it to your .env file.");
-}
-
-/**
- * Represents a latitude and longitude coordinate.
- */
-export interface LatLong {
-  lat: number;
-  long: number;
-}
-
-const ProvidenceLatLong: LatLong = {
-  lat: 41.824,
-  long: -71.4128,
-};
-const initialZoom = 10;
 
 export default function Mapbox() {
   const [viewState, setViewState] = useState({
@@ -50,7 +28,7 @@ export default function Mapbox() {
   );
 
   useEffect(() => {
-    const data = fetchMapData("2000","-2000","3000","-3000")
+    const data = fetchMapData("2000", "-2000", "3000", "-3000")
     setOverlay(overlayData(data));
   }, []);
 
@@ -63,7 +41,7 @@ export default function Mapbox() {
    * @returns a json file on success
    */
   const fetchMapData = async (
-    maxLat: string, minLat : string, maxLong : string, minLong : string
+    maxLat: string, minLat: string, maxLong: string, minLong: string
   ): Promise<GeoJSON.FeatureCollection | undefined> => {
     try {
       const res = await fetch(`http://localhost:3232/geo-data?maxLat=${maxLat}&minLat=${minLat}&maxLong=${maxLong}&minLong=${minLong}`);
@@ -164,7 +142,7 @@ export default function Mapbox() {
           };
           clickedPointsArray.push(newClickedPoint);
         }
-      setClickedPoints(clickedPointsArray);
+        setClickedPoints(clickedPointsArray);
       }
     }
   }
