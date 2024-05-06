@@ -26,6 +26,7 @@ public class Stubhub implements Scraper {
   public List<Ticket> getInfoGivenQuery(String query) {
     Document doc = null;
     String fullQuery = "https://www.stubhub.com/secure/search?q=" + query + "&sellSearch=false";
+    System.out.println(fullQuery);
     try {
       doc =
           Jsoup.connect(fullQuery)
@@ -36,6 +37,7 @@ public class Stubhub implements Scraper {
     } catch (IOException e) {
       System.out.println("not working");
     }
+    System.out.println(doc);
     Element element = doc.selectFirst("script[id=index-data]");
     String json = element.html();
     List<Ticket> tickets = getInfoFromJSON(json);
@@ -115,5 +117,6 @@ public class Stubhub implements Scraper {
   public static void main(String[] args) {
     List<Event> eventList = new ArrayList<>();
     Stubhub stubhub = new Stubhub();
+    System.out.println(stubhub.best("Argentina+vs+chile"));
   }
 }

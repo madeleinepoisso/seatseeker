@@ -22,7 +22,7 @@ public class QueryHandler implements Route {
     public Object handle(Request request, Response response) throws Exception {
         Map<String,Object> responseMap = new HashMap<>();
         try {
-            String query = request.queryParams("query");
+            String query = request.queryParams("query").replace(" ","%20");
             Scraper SH = new Stubhub();
             Scraper SG = new SeatGeek();
             Scraper VS  = new VividSeats();

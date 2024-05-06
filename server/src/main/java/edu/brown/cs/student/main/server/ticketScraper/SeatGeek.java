@@ -60,7 +60,14 @@ public class SeatGeek implements Scraper {
       String link = links.get(i).selectFirst("a").attr("href");
       String name = links.get(i).selectFirst("p[data-testid=event-item-title]").text();
       String date = links.get(i).selectFirst("p[data-testid=date]").text();
-      String time = links.get(i).selectFirst("p[data-testid=time]").text().split(" · ")[1];
+      if (date.split(" ")[1].length() == 1){
+        date = date.replace(" ", " 0");
+      }
+      String[] timeSplit = links.get(i).selectFirst("p[data-testid=time]").text().split(" · ");
+      String time = "tbd";
+      if (timeSplit.length>1) {
+        time = timeSplit[1];
+      }
       time = DateConverter.convertToMilitaryTime(time);
       Element location = links.get(i).selectFirst("p[data-testid=description]");
       String data = location.text();
@@ -81,6 +88,6 @@ public class SeatGeek implements Scraper {
 
   public static void main(String[] args) {
     Scraper SeatGeek = new SeatGeek();
-    SeatGeek.best("argentina%20vs%20chile");
+    SeatGeek.best("boston%20celtics");
   }
 }
