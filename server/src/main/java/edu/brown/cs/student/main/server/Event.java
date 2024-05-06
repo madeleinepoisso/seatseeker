@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Event {
-    private String date;
-    private String time;
-    private String city;
-    private String name;
-    private List<Ticket> tickets;
-    public Event(String date, String time, String city){
+    public String date;
+    public String time;
+    public String city;
+    public String name;
+    public List<Ticket> tickets;
+    public Event(String date, String time, String city, String name){
         this.date = date;
         this.time = time;
         this.city = city;
+        this.name = name;
         this.tickets = new ArrayList<>();
     }
 
@@ -41,7 +42,11 @@ public class Event {
         }
         return false;
     }
-
+    public Integer price(){
+        //need to fill this in to return the lowest price out of the tickets. should just be a simple for loop.
+        //could also store the tickets in the list in the order of a min heap to achieve faster retrieval.
+        return 200;
+    }
     //BELOW IS CODE TO BE ADDED TO WHEREVER WE COMPILING DIFFERENT TICKETING SERVICES
     //will also be assuming we are using a list of events to keep track
     /**
@@ -49,10 +54,12 @@ public class Event {
         for (Event event : this.eventList){
             for (Ticket ticket : this.ticketList){
                 if(event.ticketAlreadyAdded(ticket)){
+                    this.ticketList.remove(ticket);
                     break;
                 }
                 if(event.ticketAddBoolean(ticket)){
                     this.tickets.add(ticket);
+                    this.ticketList.remove(ticket);
                 }
                 else{
                     Event nameForEvent = new Event();

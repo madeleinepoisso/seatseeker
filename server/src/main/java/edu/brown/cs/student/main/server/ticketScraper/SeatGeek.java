@@ -27,6 +27,7 @@ public class SeatGeek implements Scraper {
   @Override
   public List<Ticket> best(String query) {
     List<Ticket> tickets = this.getInfoGivenQuery(query);
+    System.out.println(tickets);
     return tickets;
   }
 
