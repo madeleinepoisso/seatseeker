@@ -28,7 +28,37 @@ public class Event {
         //check if ticket matches up with event
         //ADD ALL THE OTHER STUFF NEEDED TO BE CHECKED BELOW
         if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
-            return true;
+            String[] timeArray = ticket.time.split(":");
+            String[] timeArrayActual = this.time.split(":");
+            //below is code to give a leeway to starting time as was observed starting time can vary by 30 minutes
+            if (timeArray.length == 2){
+                int hour = Integer.parseInt(timeArray[0]);
+                int min = Integer.parseInt(timeArray[1]);
+                int actHour = Integer.parseInt(timeArrayActual[0]);
+                int actMin = Integer.parseInt(timeArrayActual[1]);
+                int upperMin = min + 30;
+                int upperHour = hour;
+                int lowerMin = min - 30;
+                int lowerHour = hour;
+                if (upperMin > 60){
+                    upperMin = upperMin - 60;
+                    upperHour = upperHour + 1;
+                }
+                if (lowerMin < 0){
+                    lowerMin = lowerMin + 60;
+                    lowerHour = lowerHour - 1;
+                }
+                if (lowerHour == actHour && actMin >= lowerMin){
+                    return true;
+                } else if (upperHour == actHour && actMin <= upperMin) {
+                    return true;
+                }
+            }
+            else{
+                if(ticket.time.equals(this.time)) {
+                    return true;
+                }
+            }
         }
         //if gets here then ticket doesn't match up
         return false;
