@@ -1,7 +1,8 @@
 package edu.brown.cs.student.main.server;
 
 import java.lang.Math.*;
-import edu.brown.cs.student.main.server.ticket;
+import edu.brown.cs.student.main.server.Ticket;
+import edu.brown.cs.student.main.server.Event;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +30,10 @@ public class EventSorter {
             city_data = response1.json();
             search_city_data = response2.json();
 
-            int city_lat = city_data[0]['latitude'];
-            int city_lon = city_data[0]['longitude'];
-            int search_city_lat = search_city_data[0]['latitude'];
-            int search_city_lon = search_city_data[0]['longitude'];
+            int city_lat = city_data[0];
+            int city_lon = city_data[0];
+            int search_city_lat = search_city_data[0];
+            int search_city_lon = search_city_data[0];
 
             int R = 6371.0; 
 
@@ -64,8 +65,8 @@ public class EventSorter {
     }
 
 
-    public static ArrayList bucketSort(float[] arr, String date, String time, String city) {
-        int n = arr.length;
+    public static ArrayList bucketSort(List<Event> events, String date, String time, String city) {
+        int n = events.length;
 
         List<Float>[] buckets = new ArrayList[4];
         for (int i = 0; i < buckets.length; i++) {
@@ -74,16 +75,16 @@ public class EventSorter {
 
         for (int i = 0; i < n; i++) {
             int val = 0
-            if (arr[i].date == date ) {
+            if (events[i].date == date ) {
                 val++;
             }
-            if (arr[i].time == time) {
+            if (events[i].time == time) {
                 val++;
             }
-            if (withinRange(city, arr[i].city)) {
+            if (withinRange(city, events[i].city)) {
                 val++;
             }
-            buckets[val].add(arr[i]);
+            buckets[val].add(events[i]);
         }
 
         for (int i = 0; i < buckets.length; i++) {
@@ -93,11 +94,11 @@ public class EventSorter {
         int index = 0;
         for (int i = 0; i < buckets.length; i++) {
             for (int j = 0; j < buckets[i].size(); j++) {
-                arr[index] = buckets[i].get(j);
+                events[index] = buckets[i].get(j);
                 index++;
             }
         }
-        return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(arr, 0, 5)));
+        return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(events, 0, 5)));
     }
 }
 
