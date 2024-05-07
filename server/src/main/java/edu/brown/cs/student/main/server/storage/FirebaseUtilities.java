@@ -107,7 +107,7 @@ public class FirebaseUtilities implements StorageInterface {
       throw new IllegalArgumentException("removeUser: uid cannot be null");
     }
     Firestore db = FirestoreClient.getFirestore();
-    CollectionReference events = db.collection("users").document(uid).collection("pins");
+    CollectionReference events = db.collection("users").document(uid).collection("events");
     events.listDocuments().forEach(document -> document.delete());
   }
 }

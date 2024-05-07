@@ -27,7 +27,7 @@ public class Event {
         }
         //check if ticket matches up with event
         //ADD ALL THE OTHER STUFF NEEDED TO BE CHECKED BELOW
-        if (ticket.date.equals(this.date)){
+        if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
             return true;
         }
         //if gets here then ticket doesn't match up
