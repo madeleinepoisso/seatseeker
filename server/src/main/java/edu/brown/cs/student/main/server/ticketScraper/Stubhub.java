@@ -19,7 +19,6 @@ public class Stubhub implements Scraper {
     for (int i = 0; i < t.size(); i++) {
       this.setPriceAndSeat(t.get(i));
     }
-    System.out.println(t);
     return t;
   }
 
