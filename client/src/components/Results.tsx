@@ -30,7 +30,7 @@ export function Results(props: ResultsProps) {
       ></div>
       <Event name={"bla"} date={"tomorrow"} time={"2pm"} />
       <Event
-        name={"manolo shits on jason"}
+        name={"argentina wins world cup"}
         date={"all the time"}
         time={"any time"}
       />

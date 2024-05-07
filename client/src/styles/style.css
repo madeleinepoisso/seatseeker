@@ -69,7 +69,11 @@
   display: flex !important;
   transform: none !important;
 }
-
+.pressable-thingy {
+  text-decoration: none;
+  height: auto;
+  width: auto;
+}
 .thq-input {
   color: var(--dl-color-theme-neutral-dark);
   cursor: auto;

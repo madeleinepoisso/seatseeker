@@ -44,8 +44,21 @@ export function Event(props: EventProps) {
       </div>
       <Ticket
         price={140}
-        title={"Manolo beats the shit out of jason"}
+        title={"event to attend so fun"}
         seat={"first row"}
+        link={"https://www.google.com/"}
+      />
+      <Ticket
+        price={140}
+        title={"event to attend so fun"}
+        seat={"first row"}
+        link={"https://www.google.com/"}
+      />
+      <Ticket
+        price={140}
+        title={"event to attend so fun"}
+        seat={"first row"}
+        link={"https://www.google.com/"}
       />
     </div>
   );

@@ -33,7 +33,9 @@ function App() {
         <meta property="og:title" content="exported project" />
       </Helmet>
       <div className="home-header">
-        <h1 className="home-seat-seeker">SeatSeeker</h1>
+        <a href={"http://localhost:8000/"} className="pressable-thingy">
+          <h1 className="home-seat-seeker">SeatSeeker</h1>
+        </a>
         <div className="home-container01">
           <div className="home-container02">
             <div className="home-container03"></div>
