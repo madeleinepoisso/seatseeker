@@ -163,10 +163,15 @@ public class VividSeats implements Scraper {
                 + ", "
                 + ticketNode.get("venue").get("state").asText();
         String date = ticketNode.get("localDate").asText();
+
         Integer minPrice = Integer.parseInt(ticketNode.get("minPrice").asText());
         ZonedDateTime zonedTime = ZonedDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME);
         String month = zonedTime.getMonth().toString();
-        date = fullToAbbrev.get(month.charAt(0) + month.substring(1).toLowerCase()) + " " + zonedTime.getDayOfMonth();
+        String day = String.valueOf(zonedTime.getDayOfMonth());
+        if (day.length() < 2){
+            day = "0"+day;
+        }
+        date = fullToAbbrev.get(month.charAt(0) + month.substring(1).toLowerCase()) + " " + day;
         String time =
             String.valueOf(zonedTime.getHour()) + ":" + String.valueOf(zonedTime.getMinute());
         Ticket t = new Ticket(minPrice, date, name, link, time, location, "unknown");//we see that it sets everything but the seat

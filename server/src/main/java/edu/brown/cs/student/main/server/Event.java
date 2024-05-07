@@ -47,6 +47,9 @@ public class Event {
         //could also store the tickets in the list in the order of a min heap to achieve faster retrieval.
         return 200;
     }
+    public String toString(){
+        return this.name + ", local: " + this.city + ", date: "+ this.date+ ", time: " + this.time;
+    }
     //BELOW IS CODE TO BE ADDED TO WHEREVER WE COMPILING DIFFERENT TICKETING SERVICES
     //will also be assuming we are using a list of events to keep track
     /**

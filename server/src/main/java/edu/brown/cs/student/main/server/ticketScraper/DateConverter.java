@@ -11,6 +11,9 @@ public class DateConverter {
      * @return
      */
     public static String convertToMilitaryTime(String timeString) {
+        if (timeString.equals("tbd") || timeString.equals("TBD")) {
+            return "TBD";
+        }
         String[] parts = timeString.toLowerCase().split(":|(?<=\\d)(?=\\D)");
 
         // Parse hours and minutes

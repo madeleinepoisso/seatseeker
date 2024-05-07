@@ -2,10 +2,7 @@ package edu.brown.cs.student.main.server;
 
 import static spark.Spark.after;
 
-import edu.brown.cs.student.main.server.handlers.AddEventsHandler;
-import edu.brown.cs.student.main.server.handlers.ClearEvents;
-import edu.brown.cs.student.main.server.handlers.KeyWordSearchHandler;
-import edu.brown.cs.student.main.server.handlers.getEventsHandler;
+import edu.brown.cs.student.main.server.handlers.*;
 import edu.brown.cs.student.main.server.storage.FirebaseUtilities;
 import edu.brown.cs.student.main.server.storage.StorageInterface;
 import java.io.IOException;
@@ -34,6 +31,7 @@ public class Server {
       Spark.get("list-events", new getEventsHandler(firebaseUtils));
       Spark.get("clear-events", new ClearEvents(firebaseUtils));
       Spark.get("keyword", new KeyWordSearchHandler());
+      Spark.get("query",new QueryHandler());
 
       Spark.notFound(
           (request, response) -> {
