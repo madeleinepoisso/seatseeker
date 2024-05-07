@@ -15,7 +15,7 @@
   position: relative;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: #2C2A4A;
+  background-color: #2c2a4a;
 }
 
 .home-seat-seeker {
@@ -268,6 +268,19 @@
   background-color: #e63946;
 }
 
+.home-sign-in {
+  color: #c9d6ea;
+  width: var(--dl-size-size-large);
+  height: 40px;
+  font-size: 20px;
+  align-self: flex-start;
+  font-style: normal;
+  font-weight: 300;
+  border-width: 0px;
+  border-radius: 10px;
+  background-color: #e63946;
+}
+
 .home-container19 {
   width: 100%;
   height: 455px;
@@ -293,7 +306,6 @@
   align-self: center;
   text-align: center;
   font-weight: 200;
-
 }
 
 .home-container21 {
@@ -335,7 +347,17 @@
   background-color: #c9d6ea;
 }
 
-.home-button1 {
+<<<<<<< HEAD .home-button1 {
+  color: rgb(201, 214, 234);
+  width: 111px;
+  height: 47px;
+  font-family: "Poppins";
+  font-size: 20px;
+  border-width: 0px;
+  background-color: rgb(79, 81, 140);
+}
+
+=======>>>>>>>7aad32a52b5e511c6b91cbf9c620598193bad353 .home-button1 {
   color: rgb(201, 214, 234);
   width: 111px;
   height: 47px;

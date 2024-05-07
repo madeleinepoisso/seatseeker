@@ -3,7 +3,7 @@ import "../styles/home.css";
 import "../styles/style.css";
 import Mapbox from "./Mapbox";
 import AuthRoute from "./auth/AuthRoute";
-import { Helmet } from 'react-helmet'
+import { Helmet } from "react-helmet";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGcaZsb_OVHXf9tSX7TpMfbjBkKceS2zI",
@@ -20,6 +20,9 @@ initializeApp(firebaseConfig);
  * This is the highest level component!
  */
 function App() {
+  const just_say_click = () => {
+    console.log("yay clicked");
+  };
   return (
     <div className="home-container">
       <Helmet>
@@ -44,9 +47,7 @@ function App() {
           <div className="home-container08">
             <div className="home-container09">
               <div className="home-container10"></div>
-              <button type="button" className="home-sign-in-button">
-                Sign In
-              </button>
+              <button className="home-sign-in button">Sign In</button>
             </div>
             <div className="home-container11"></div>
           </div>
@@ -69,7 +70,7 @@ function App() {
               className="home-keyword-input input"
             />
             <div className="home-container18"></div>
-            <button type="button" className="home-button button">
+            <button className="home-button button" onClick={just_say_click}>
               Search
             </button>
           </div>
@@ -100,7 +101,7 @@ function App() {
             className="home-textinput2 input"
           />
         </div>
-        <button type="button" className="home-button1 button">
+        <button className="home-button button" onClick={just_say_click}>
           Search
         </button>
       </div>
