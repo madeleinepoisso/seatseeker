@@ -19,13 +19,13 @@ public class Stubhub implements Scraper {
     for (int i = 0; i < t.size(); i++) {
       this.setPriceAndSeat(t.get(i));
     }
+    System.out.println(t);
     return t;
   }
 
   public List<Ticket> getInfoGivenQuery(String query) {
     Document doc = null;
     String fullQuery = "https://www.stubhub.com/secure/search?q=" + query + "&sellSearch=false";
-    System.out.println(fullQuery);
     try {
       doc =
           Jsoup.connect(fullQuery)
@@ -36,7 +36,6 @@ public class Stubhub implements Scraper {
     } catch (IOException e) {
       System.out.println("not working");
     }
-    System.out.println(doc);
     Element element = doc.selectFirst("script[id=index-data]");
     String json = element.html();
     List<Ticket> tickets = getInfoFromJSON(json);
@@ -102,7 +101,8 @@ public class Stubhub implements Scraper {
         String name = events.get("2").get("items").get(i).get("name").asText();
         String date = events.get("2").get("items").get(i).get("formattedDate").asText();
         String time = events.get("2").get("items").get(i).get("formattedTime").asText();
-        String city = events.get("2").get("items").get(i).get("formattedVenueLocation").asText();
+        time = DateConverter.convertToMilitaryTime(time);
+        String city = events.get("2").get("items").get(i).get("formattedVenueLocation").asText().replace(", USA","");
         Ticket t = new Ticket(null, date, name, link, time, city, null);
         tickets.add(t);
       }

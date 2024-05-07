@@ -31,7 +31,7 @@ public class Event {
             String[] timeArray = ticket.time.split(":");
             String[] timeArrayActual = this.time.split(":");
             //below is code to give a leeway to starting time as was observed starting time can vary by 30 minutes
-            if (timeArray.length == 2){
+            if (timeArray.length == 2 && timeArrayActual.length == 2){
                 int hour = Integer.parseInt(timeArray[0]);
                 int min = Integer.parseInt(timeArray[1]);
                 int actHour = Integer.parseInt(timeArrayActual[0]);

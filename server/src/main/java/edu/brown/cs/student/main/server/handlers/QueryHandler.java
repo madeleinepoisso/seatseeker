@@ -44,6 +44,7 @@ public class QueryHandler implements Route {
             this.eventUpdate(VividTix,events);
             EventSorter sorter = new EventSorter();
             sorter.insertionSort(events);
+            System.out.println(events.size());
             for (Event event : events){
                 System.out.println(event.toString());
                 for (Ticket ticket : event.tickets){
