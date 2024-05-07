@@ -77,7 +77,7 @@ function App() {
       </div>
       <div className="home-container19">
         <div className="home-container20">
-          <h1 className="home-text">Looking to narrow your search?</h1>
+          <h1 className="looking">Looking to narrow your search?</h1>
         </div>
         <div className="home-container21">
           <input

@@ -263,6 +263,7 @@
   height: 47px;
   font-size: 20px;
   border-width: 0px;
+  font-family: monospace;
   border-radius: 10px;
   background-color: #e63946;
 }
@@ -286,9 +287,9 @@
   justify-content: flex-start;
 }
 
-.home-text {
+.looking {
   color: #e63946;
-  width: 564px;
+  width: 100%;
   align-self: center;
   text-align: center;
   font-weight: 200;
@@ -338,6 +339,7 @@
   color: rgb(201, 214, 234);
   width: 111px;
   height: 47px;
+  font-family: "Poppins";
   font-size: 20px;
   border-width: 0px;
   background-color: rgb(79, 81, 140);
