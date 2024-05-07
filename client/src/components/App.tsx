@@ -44,7 +44,7 @@ function App() {
           <div className="home-container08">
             <div className="home-container09">
               <div className="home-container10"></div>
-              <button type="button" className="home-sign-in button">
+              <button type="button" className="home-sign-in-button">
                 Sign In
               </button>
             </div>
