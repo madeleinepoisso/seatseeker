@@ -44,13 +44,19 @@ public class QueryHandler implements Route {
             this.eventUpdate(VividTix,events);
             EventSorter sorter = new EventSorter();
             sorter.insertionSort(events);
+            for (Event event : events){
+                System.out.println(event.toString());
+                for (Ticket ticket : event.tickets){
+                    System.out.println(ticket.name);
+                }
+            }
             responseMap.put("events",events);
         } catch (Exception e){
             responseMap.put("response_type","failure");
             e.printStackTrace();
             responseMap.put("error",e.getMessage());
         }
-        System.out.println(responseMap);
+        //System.out.println(responseMap);
         return responseMap;
     }
     private void eventUpdate(List<Ticket> ticketList, List<Event> eventList){
