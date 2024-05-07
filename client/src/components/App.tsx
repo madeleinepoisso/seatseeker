@@ -46,7 +46,7 @@ function App() {
         <div className="home-container07">
           <div className="home-container08">
             <button className="home-sign-in button">Sign In</button>
-            <div className="home-container11"></div>
+
           </div>
           <div className="home-container12">
             <span className="home-to-save">to save events to favorites</span>
