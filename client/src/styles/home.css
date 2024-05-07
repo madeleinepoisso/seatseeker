@@ -23,10 +23,11 @@
   width: 100%;
   height: 180px;
   font-size: 60px;
-  font-family: "Poppins";
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 600;
   padding-top: 10px;
-  padding-left: 70px;
+  padding-left: 40px;
+  padding-right: 10px;
   padding-bottom: 60px;
 }
 
@@ -81,6 +82,7 @@
   font-size: 28px;
   align-self: flex-start;
   font-style: normal;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 200;
   padding-top: var(--dl-space-space-unit);
   padding-left: 10px;
@@ -101,9 +103,8 @@
   height: 100%;
   display: flex;
   align-items: flex-end;
-  padding-top: 35px;
-  padding-left: 200px;
-  padding-right: 25px;
+  padding-top: 10px;
+  padding-left: 180px;
   flex-direction: column;
   padding-bottom: 35px;
   justify-content: center;
@@ -118,30 +119,12 @@
   justify-content: flex-end;
 }
 
-.home-container09 {
-  width: auto;
-  height: 38px;
-  display: flex;
-  align-self: flex-start;
-  align-items: flex-start;
-  justify-content: flex-end;
-}
-
-.home-container10 {
-  flex: 0 0 auto;
-  width: 28px;
-  height: 100px;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
 .home-sign-in-button {
   color: #c9d6ea;
   width: 145px;
   height: 40px;
   font-size: 20px;
-  font-family: "Poppins";
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   align-self: flex-start;
   font-style: normal;
   font-weight: 300;
@@ -167,18 +150,22 @@
 }
 
 .home-container12 {
-  width: 200px;
+  width: 300px;
   height: 27px;
   display: flex;
+  padding-top: 10px;
   align-items: center;
   justify-content: center;
 }
 
 .home-to-save {
-  color: #e63946;
-  align-self: center;
+  color: rgb(201, 214, 234);
+  align-self: left;
   font-style: normal;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
   font-weight: 200;
+  font-size: medium;
 }
 
 .home-container13 {
@@ -227,8 +214,9 @@
   color: rgb(201, 214, 234);
   height: 51px;
   font-size: 40px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 200;
 }
 
 .home-container17 {
@@ -263,7 +251,7 @@
   height: 47px;
   font-size: 20px;
   border-width: 0px;
-  font-family: monospace;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   border-radius: 10px;
   background-color: #e63946;
 }
@@ -275,6 +263,7 @@
   font-size: 20px;
   align-self: flex-start;
   font-style: normal;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 300;
   border-width: 0px;
   border-radius: 10px;
@@ -303,6 +292,7 @@
 .looking {
   color: #e63946;
   width: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   align-self: center;
   text-align: center;
   font-weight: 200;
@@ -347,21 +337,21 @@
   background-color: #c9d6ea;
 }
 
-<<<<<<< HEAD .home-button1 {
+.home-button1 {
   color: rgb(201, 214, 234);
   width: 111px;
   height: 47px;
-  font-family: "Poppins";
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 20px;
   border-width: 0px;
   background-color: rgb(79, 81, 140);
 }
 
-=======>>>>>>>7aad32a52b5e511c6b91cbf9c620598193bad353 .home-button1 {
+.home-button1 {
   color: rgb(201, 214, 234);
   width: 111px;
   height: 47px;
-  font-family: "Poppins";
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 20px;
   border-width: 0px;
   background-color: rgb(79, 81, 140);
