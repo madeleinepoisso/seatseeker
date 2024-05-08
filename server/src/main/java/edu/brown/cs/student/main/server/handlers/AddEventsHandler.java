@@ -27,13 +27,15 @@ public class AddEventsHandler implements Route {
     Map<String, Object> responseMap = new HashMap<>();
     try {
       String uid = request.queryParams("uid");
-      String eventId = request.queryParams("eventID");
       String name = request.queryParams("name");
       String city = request.queryParams("city");
       String date = request.queryParams("date");
       String time = request.queryParams("time");
 
-      storageHandler.addEvent(uid, eventId, name, date, time, city);
+      int pinCount = this.storageHandler.getCollection(uid).size();
+      String eventID = "event-" + pinCount;
+
+      storageHandler.addEvent(uid, eventID, name, date, time, city);
       responseMap.put("status", "success");
     } catch (Exception e) {
       e.printStackTrace();

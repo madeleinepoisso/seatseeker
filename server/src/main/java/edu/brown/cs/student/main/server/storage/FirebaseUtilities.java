@@ -39,7 +39,8 @@ public class FirebaseUtilities implements StorageInterface {
   }
 
   /**
-   *  Adds an event with specified details to the Firestore database under the user's collection.
+   * Adds an event with specified details to the Firestore database under the user's collection.
+   *
    * @param uid - user id
    * @param eventid - number event in user database
    * @param name - name of event
@@ -49,9 +50,15 @@ public class FirebaseUtilities implements StorageInterface {
    * @throws IllegalArgumentException
    */
   @Override
-  public void addEvent(String uid, String eventid, String name, String date, String time, String city)
+  public void addEvent(
+      String uid, String eventid, String name, String date, String time, String city)
       throws IllegalArgumentException {
-    if (uid == null || eventid == null || name == null || date == null|| time == null|| city == null) {
+    if (uid == null
+        || eventid == null
+        || name == null
+        || date == null
+        || time == null
+        || city == null) {
       throw new IllegalArgumentException(
           "addPin: uid, pinid, name, city, time, or date cannot be null");
     }
@@ -72,15 +79,16 @@ public class FirebaseUtilities implements StorageInterface {
    * @return List of maps containing event data.
    */
   @Override
-  public List<Map<String, Object>> getCollection(String uid)
-      throws InterruptedException, ExecutionException, IllegalArgumentException {
+  public List<Map<String, Object>> getCollection(String uid) throws IllegalArgumentException {
     List<Map<String, Object>> eventsList = new ArrayList<>();
     if (uid == null) {
       throw new IllegalArgumentException("getCollection: uid cannot be null");
     }
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference events = db.collection("users").document(uid).collection("events");
-    try { events.get()
+    try {
+      events
+          .get()
           .get()
           .forEach(
               document -> {

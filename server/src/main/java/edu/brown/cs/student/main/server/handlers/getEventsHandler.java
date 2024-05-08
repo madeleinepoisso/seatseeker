@@ -36,7 +36,8 @@ public class getEventsHandler implements Route {
       List<Map<String, Object>> events = storageHandler.getCollection(uid);
       if (events.isEmpty()) {
         return Utils.toMoshiJson(
-            Map.of("status", "success", "message", "No saved events found for user.", "data", events));
+            Map.of(
+                "status", "success", "message", "No saved events found for user.", "data", events));
       } else {
         return Utils.toMoshiJson(Map.of("status", "success", "data", events));
       }

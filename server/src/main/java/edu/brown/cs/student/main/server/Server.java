@@ -31,7 +31,7 @@ public class Server {
       Spark.get("list-events", new getEventsHandler(firebaseUtils));
       Spark.get("clear-events", new ClearEvents(firebaseUtils));
       Spark.get("keyword", new KeyWordSearchHandler());
-      Spark.get("query",new QueryHandler());
+      Spark.get("query", new QueryHandler());
 
       Spark.notFound(
           (request, response) -> {

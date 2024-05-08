@@ -29,3 +29,9 @@ img {
   height: 30px;
   color: white;
 }
+
+.save-button {
+  background-color: transparent;
+  border-radius: 0px;
+  border-color: transparent;
+}
