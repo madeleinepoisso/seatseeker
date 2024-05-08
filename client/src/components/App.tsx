@@ -68,16 +68,8 @@ function App() {
           </div>
           <div className="home-container06"></div>
         </div>
-        <div className="home-container07">
-          <div className="home-container08">
-            <LoginLogout loggedIn={loggedIn} setLogin={setLogin} />
-          </div>
-          <div className="home-container12">
-            <span className="home-to-save">
-              Sign in to save events to your account
-            </span>
-          </div>
-        </div>
+        <LoginLogout loggedIn={loggedIn} setLogin={setLogin} mode={mode}
+          setMode={setMode} />
       </div>
 
       <CurrentScreen
@@ -88,6 +80,7 @@ function App() {
         setQuery={setQuery}
       />
     </div>
+
   );
 }
 

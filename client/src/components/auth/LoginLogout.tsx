@@ -1,10 +1,13 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import React from "react";
+import React, { SetStateAction } from "react";
 import { addLoginCookie, removeLoginCookie } from "../../utils/cookie";
+import { Modes } from "../mode";
 
 export interface ILoginPageProps {
   loggedIn: boolean;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  mode: Modes;
+  setMode: React.Dispatch<SetStateAction<Modes>>;
 }
 
 const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
@@ -32,14 +35,23 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   };
 
   return (
+    <div className="home-container07">
+      <div className="home-container08">
+        <button
+          className="home-sign-in button"
+          onClick={() => signInWithGoogle()}
+          disabled={props.loggedIn}
+        >
+          Sign in
+        </button>
+      </div>
+      <div className="home-container12">
+        <span className="home-to-save">
+          Sign in to save events to your account
+        </span>
+      </div>
+    </div>
 
-    <button
-      className="home-sign-in button"
-      onClick={() => signInWithGoogle()}
-      disabled={props.loggedIn}
-    >
-      Sign in
-    </button>
   );
 };
 
@@ -47,12 +59,26 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
   const signOut = () => {
     removeLoginCookie();
     props.setLogin(false);
+    props.setMode(Modes.home)
   };
 
   return (
-    <button className="home-sign-in button" onClick={() => signOut()}>
-      Sign Out
-    </button>
+
+    <div className="home-container07">
+      <div className="home-container08">
+        <button className="home-sign-in button" onClick={() => signOut()}>
+          Sign Out
+        </button>
+      </div>
+      <div className="home-container12">
+        <span className="home-to-save">
+          <button className="home-saved button" onClick={() => props.setMode(Modes.saved)}>
+            Saved Events
+          </button>
+        </span>
+      </div>
+    </div>
+
   );
 };
 

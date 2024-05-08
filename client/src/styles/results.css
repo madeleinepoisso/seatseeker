@@ -11,8 +11,9 @@
   background-color: #4f518c;
   position: relative;
 }
+
 .event-title-container {
-  width: 13%;
+  width: auto;
   height: 180px;
   display: flex;
   position: absolute;
@@ -22,6 +23,7 @@
   margin-left: 60px;
   left: 0;
 }
+
 .event-title {
   color: #f2f2f2;
   width: auto;
