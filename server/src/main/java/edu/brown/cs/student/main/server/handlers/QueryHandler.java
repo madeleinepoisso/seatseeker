@@ -1,5 +1,6 @@
 package edu.brown.cs.student.main.server.handlers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.brown.cs.student.main.server.Event;
 import edu.brown.cs.student.main.server.EventSorter;
 import edu.brown.cs.student.main.server.Ticket;
@@ -51,14 +52,17 @@ public class QueryHandler implements Route {
                     System.out.println(ticket.name);
                 }
             }
-            responseMap.put("events",events);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonEvents = mapper.writeValueAsString(events);
+            responseMap.put("events",jsonEvents);
         } catch (Exception e){
             responseMap.put("response_type","failure");
             e.printStackTrace();
             responseMap.put("error",e.getMessage());
         }
-        //System.out.println(responseMap);
-        return responseMap;
+        ObjectMapper mapper = new ObjectMapper();
+        String toReturn = mapper.writeValueAsString(responseMap);
+        return toReturn;
     }
     private void eventUpdate(List<Ticket> ticketList, List<Event> eventList){
         int checker;

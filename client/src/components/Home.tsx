@@ -2,13 +2,8 @@ import "../styles/home.css";
 import "../styles/style.css";
 import { Modes } from "./mode";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
-interface HomeProps {
-  mode: Modes;
-  setMode: Dispatch<SetStateAction<Modes>>;
-  query: string;
-  setQuery: Dispatch<SetStateAction<string>>;
-}
-export function Home(props: HomeProps) {
+import { Props } from "./App";
+export function Home(props: Props) {
   const handleSubmit = async () => {
     if (props.query === "") {
       return;

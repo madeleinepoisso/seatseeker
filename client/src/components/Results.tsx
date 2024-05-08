@@ -5,21 +5,24 @@ import { Event } from "./Event";
 import { Ticket } from "./Ticket";
 import "../styles/results.css";
 import { useState } from "react";
-import { ReactElement } from "react";
-interface ResultsProps {
-  mode: Modes;
-  setMode: Dispatch<SetStateAction<Modes>>;
-  query: string;
-  setQuery: Dispatch<SetStateAction<string>>;
-}
-export function Results(props: ResultsProps) {
+import { ReactElement, Fragment } from "react";
+import { Props } from "./App";
+import { getEvents } from "../utils/get_events";
+export function Results(props: Props) {
   const [events, setEvents] = useState<ReactElement<typeof Event>[]>([]);
   useEffect(() => {
+    if (props.query === "") {
+      return;
+    }
+    getEvents(props.query).then((events) => {
+      console.log("in here again");
+      setEvents(events);
+      props.setQuery("");
+    });
     return () => {
       console.log("Results component unmounted");
     };
-  });
-  const getEvents = async () => {};
+  }, []);
   return (
     <div className="results-container">
       <div className="event-title-container">
@@ -32,7 +35,9 @@ export function Results(props: ResultsProps) {
           backgroundColor: "transparent",
         }}
       ></div>
-      //events go here
+      {events.map((event, index) => (
+        <Fragment key={index}>{event}</Fragment>
+      ))}
     </div>
   );
 }

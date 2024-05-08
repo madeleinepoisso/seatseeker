@@ -7,6 +7,7 @@ interface EventProps {
   name: string;
   date: string;
   time: string;
+  city: string;
   tickets: ReactElement<typeof Ticket>[];
 }
 export function Event(props: EventProps) {

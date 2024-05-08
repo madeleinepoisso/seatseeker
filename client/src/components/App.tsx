@@ -21,11 +21,12 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-interface Props {
+export interface Props {
   mode: Modes;
   setMode: Dispatch<SetStateAction<Modes>>;
   loggedIn: boolean;
   query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
 }
 
 /**
@@ -34,6 +35,7 @@ interface Props {
 function App() {
   const [mode, setMode] = useState<Modes>(Modes.home);
   const [loggedIn, setLogin] = useState(false);
+  const [query, setQuery] = useState("");
 
   //fixed prop any
   const CurrentScreen: (props: Props) => React.JSX.Element =
@@ -82,7 +84,8 @@ function App() {
         mode={mode}
         setMode={setMode}
         loggedIn={loggedIn}
-        query={"boston celtics"}
+        query={query}
+        setQuery={setQuery}
       />
     </div>
   );

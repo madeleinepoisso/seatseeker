@@ -22,7 +22,6 @@ public class DateConverter {
 
         // Adjust hours for PM time
         if (parts[2].equals("pm")) {
-            System.out.println("pm");
             hours = (hours == 12) ? 12 : hours + 12;
         } else if (parts[2].equals("am") && hours == 12) {
             hours = 0; // Midnight (12 AM) is 0 in military time

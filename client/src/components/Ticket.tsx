@@ -1,6 +1,6 @@
 import "../styles/Ticket.css";
 import hyperlink from "../besthyperlink.png";
-interface ticketProps {
+export interface ticketProps {
   price: number;
   title: string;
   seat: string;
