@@ -60,7 +60,7 @@ export function Home(props: Props) {
         <div className="home-container23">
           <input
             type="text"
-            placeholder="time ex 19:15"
+            placeholder="time ex. 19:15"
             className="home-textinput2 input"
           />
         </div>
