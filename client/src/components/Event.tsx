@@ -1,5 +1,7 @@
 import { Ticket } from "./Ticket";
 import "../styles/Event.css";
+import emptyHeart from "../emptyheart.png";
+
 interface EventProps {
   name: string;
   date: string;
@@ -9,6 +11,7 @@ export function Event(props: EventProps) {
   return (
     <div className="event-container">
       <div className="event-info">
+        <img src={emptyHeart} />
         <span
           style={{
             color: "#FFF",

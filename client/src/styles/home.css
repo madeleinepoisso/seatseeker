@@ -134,9 +134,12 @@ body {
 }
 
 .home-sign-in-button {
-  position: absolute; /* Position the button relative to the viewport */
-  top: 20px; /* Adjust the distance from the top of the viewport */
-  right: 20px; /* Adjust the distance from the right of the viewport */
+  position: absolute;
+  /* Position the button relative to the viewport */
+  top: 20px;
+  /* Adjust the distance from the top of the viewport */
+  right: 20px;
+  /* Adjust the distance from the right of the viewport */
   color: #c9d6ea;
   width: 145px;
   height: 40px;
@@ -146,7 +149,8 @@ body {
   align-self: auto;
   font-style: normal;
   font-weight: 300;
-  border: 0px; /* Use shorthand for border */
+  border: 0px;
+  /* Use shorthand for border */
   background-color: transparent;
 }
 
@@ -291,6 +295,7 @@ body {
   border-radius: 10px;
   background-color: #e63946;
 }
+
 .home-container19 {
   bottom: 0;
   width: 100%;

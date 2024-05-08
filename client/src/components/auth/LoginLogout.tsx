@@ -32,16 +32,14 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
   };
 
   return (
-    <div className="login-box">
-      <h1>Login Page</h1>
-      <button
-        className="google-login-button"
-        onClick={() => signInWithGoogle()}
-        disabled={props.loggedIn}
-      >
-        Sign in with Google
-      </button>
-    </div>
+
+    <button
+      className="home-sign-in button"
+      onClick={() => signInWithGoogle()}
+      disabled={props.loggedIn}
+    >
+      Sign in
+    </button>
   );
 };
 
@@ -52,11 +50,9 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
   };
 
   return (
-    <div className="logout-box">
-      <button className="SignOut" onClick={() => signOut()}>
-        Sign Out
-      </button>
-    </div>
+    <button className="home-sign-in button" onClick={() => signOut()}>
+      Sign Out
+    </button>
   );
 };
 

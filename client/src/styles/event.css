@@ -12,6 +12,7 @@
   margin-top: 10px;
   margin-bottom: 20px;
 }
+
 .event-info {
   width: 100%;
   height: 100%;
@@ -21,4 +22,10 @@
   justify-content: space-around;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+img {
+  width: 30px;
+  height: 30px;
+  color: white;
 }

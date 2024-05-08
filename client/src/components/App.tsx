@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 import "../styles/home.css";
 import "../styles/style.css";
-import Mapbox from "./Mapbox";
-import AuthRoute from "./auth/AuthRoute";
 import { Helmet } from "react-helmet";
 import { Home } from "./Home";
 import { Modes, ScreenMap } from "./mode";
 import { useState } from "react";
 import { Results } from "./Results";
+import { getLoginCookie } from "../utils/cookie";
+import LoginLogout from "./auth/LoginLogout";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGcaZsb_OVHXf9tSX7TpMfbjBkKceS2zI",
@@ -25,7 +25,15 @@ initializeApp(firebaseConfig);
  */
 function App() {
   const [mode, setMode] = useState<Modes>(Modes.home);
+  const [loggedIn, setLogin] = useState(false);
+
   const CurrentScreen: (props: any) => React.JSX.Element = ScreenMap.get(mode)!;
+
+  // SKIP THE LOGIN BUTTON IF YOU HAVE ALREADY LOGGED IN.
+  if (!loggedIn && getLoginCookie() !== undefined) {
+    setLogin(true);
+  }
+
   return (
     <div className="home-container">
       <Helmet>
@@ -50,14 +58,16 @@ function App() {
         </div>
         <div className="home-container07">
           <div className="home-container08">
-            <button className="home-sign-in button">Sign In</button>
+            <LoginLogout loggedIn={loggedIn} setLogin={setLogin} />
           </div>
           <div className="home-container12">
             <span className="home-to-save">to save events to favorites</span>
           </div>
         </div>
       </div>
+
       <CurrentScreen mode={mode} setMode={setMode} query={"boston celtics"} />
+
     </div>
   );
 }
