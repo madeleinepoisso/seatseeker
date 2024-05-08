@@ -59,45 +59,44 @@ public class EventSorter {
             }
         }
         else{
-            //
             print("Error:", response1.status_code, response1.text);
             print("Error:", response2.status_code, response2.text);
         }
 
 
-        public static ArrayList bucketSort(List<Event> events, String date, String time, String city) {
-            int n = events.length;
+    public static ArrayList bucketSort(List<Event> events, String date, String time, String city) {
+        int n = events.length;
 
-            List<Float>[] buckets = new ArrayList[4];
-            for (int i = 0; i < buckets.length; i++) {
-                buckets[i] = new ArrayList<>();
-            }
-
-            for (int i = 0; i < n; i++) {
-                int val = 0
-                if (events[i].date == date ) {
-                    val++;
-                }
-                if (events[i].time == time) {
-                    val++;
-                }
-                if (withinRange(city, events[i].city)) {
-                    val++;
-                }
-                buckets[val].add(events[i]);
-            }
-
-            for (int i = 0; i < buckets.length; i++) {
-                insertionSort(buckets[i]);
-            }
-
-            int index = 0;
-            for (int i = 0; i < buckets.length; i++) {
-                for (int j = 0; j < buckets[i].size(); j++) {
-                    events[index] = buckets[i].get(j);
-                    index++;
-                }
-            }
-            return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(events, 0, 5)));
+        List<Float>[] buckets = new ArrayList[4];
+        for (int i = 0; i < buckets.length; i++) {
+            buckets[i] = new ArrayList<>();
         }
+
+        for (int i = 0; i < n; i++) {
+            int val = 0
+            if (events[i].date == date) {
+                val++;
+            }
+            if (events[i].time == time) {
+                val++;
+            }
+            if (withinRange(city, events[i].city)) {
+                val++;
+            }
+            buckets[val].add(events[i]);
+        }
+
+        for (int i = 0; i < buckets.length; i++) {
+            insertionSort(buckets[i]);
+        }
+
+        int index = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            for (int j = 0; j < buckets[i].size(); j++) {
+                events[index] = buckets[i].get(j);
+                index++;
+            }
+        }
+        return new ArrayList<>(Arrays.asList(Arrays.copyOfRange(events, 0, 5)));
     }
+}
