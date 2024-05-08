@@ -4,10 +4,11 @@ import "../styles/style.css";
 import { Helmet } from "react-helmet";
 import { Home } from "./Home";
 import { Modes, ScreenMap } from "./mode";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { Results } from "./Results";
 import { getLoginCookie } from "../utils/cookie";
 import LoginLogout from "./auth/LoginLogout";
+import { log } from "console";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGcaZsb_OVHXf9tSX7TpMfbjBkKceS2zI",
@@ -20,14 +21,22 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+interface Props {
+  mode: Modes;
+  setMode: Dispatch<SetStateAction<Modes>>;
+  loggedIn: boolean;
+  query: string;
+}
+
 /**
  * This is the highest level component!
  */
 function App() {
   const [mode, setMode] = useState<Modes>(Modes.home);
   const [loggedIn, setLogin] = useState(false);
-
-  const CurrentScreen: (props: any) => React.JSX.Element = ScreenMap.get(mode)!;
+  
+  //fixed prop any
+  const CurrentScreen: (props: Props) => React.JSX.Element = ScreenMap.get(mode)!;
 
   // SKIP THE LOGIN BUTTON IF YOU HAVE ALREADY LOGGED IN.
   if (!loggedIn && getLoginCookie() !== undefined) {
@@ -50,7 +59,7 @@ function App() {
             <div className="home-container04">
               <div className="home-container05"></div>
               <span className="home-compare-ticket">
-                compare ticket prices with a single click
+                Compare ticket prices with a single click
               </span>
             </div>
           </div>
@@ -61,12 +70,12 @@ function App() {
             <LoginLogout loggedIn={loggedIn} setLogin={setLogin} />
           </div>
           <div className="home-container12">
-            <span className="home-to-save">to save events to favorites</span>
+            <span className="home-to-save">Sign in to save events to your account</span>
           </div>
         </div>
       </div>
 
-      <CurrentScreen mode={mode} setMode={setMode} query={"boston celtics"} />
+      <CurrentScreen mode={mode} setMode={setMode} loggedIn={loggedIn} query={"boston celtics"} />
 
     </div>
   );

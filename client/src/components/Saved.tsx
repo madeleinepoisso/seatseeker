@@ -4,16 +4,15 @@ import { Dispatch, SetStateAction } from "react";
 import { Event } from "./Event";
 import { Ticket } from "./Ticket";
 import "../styles/results.css";
-interface ResultsProps {
+interface SavedProps {
   mode: Modes;
   setMode: Dispatch<SetStateAction<Modes>>;
   loggedIn: boolean;
   query: string;
 }
-export function Results(props: ResultsProps) {
+export function Saved(props: SavedProps) {
   useEffect(() => {
     console.log("Results component mounted");
-    console.log(props.query)
     return () => {
       console.log("Results component unmounted");
     };
@@ -21,7 +20,7 @@ export function Results(props: ResultsProps) {
   return (
     <div className="results-container">
       <div className="event-title-container">
-        <h1 className="event-title">Events</h1>
+        <h1 className="event-title">Saved Events</h1>
       </div>
       <div
         style={{

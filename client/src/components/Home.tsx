@@ -1,11 +1,11 @@
 import "../styles/home.css";
 import "../styles/style.css";
-import { Helmet } from "react-helmet";
 import { Modes } from "./mode";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 interface HomeProps {
   mode: Modes;
   setMode: Dispatch<SetStateAction<Modes>>;
+  loggedIn: boolean;
 }
 export function Home(props: HomeProps) {
   const [commandString, setCommandString] = useState<string>("");
