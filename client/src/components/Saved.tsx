@@ -4,26 +4,23 @@ import { Dispatch, SetStateAction } from "react";
 import { Event } from "./Event";
 import { Ticket } from "./Ticket";
 import "../styles/results.css";
-import { useState } from "react";
-import { ReactElement } from "react";
-interface ResultsProps {
+interface SavedProps {
   mode: Modes;
   setMode: Dispatch<SetStateAction<Modes>>;
+  loggedIn: boolean;
   query: string;
-  setQuery: Dispatch<SetStateAction<string>>;
 }
-export function Results(props: ResultsProps) {
-  const [events, setEvents] = useState<ReactElement<typeof Event>[]>([]);
+export function Saved(props: SavedProps) {
   useEffect(() => {
+    console.log("Results component mounted");
     return () => {
       console.log("Results component unmounted");
     };
   });
-  const getEvents = async () => {};
   return (
     <div className="results-container">
       <div className="event-title-container">
-        <h1 className="event-title">Events</h1>
+        <h1 className="event-title">Saved Events</h1>
       </div>
       <div
         style={{
@@ -32,7 +29,12 @@ export function Results(props: ResultsProps) {
           backgroundColor: "transparent",
         }}
       ></div>
-      //events go here
+      <Event name={"bla"} date={"tomorrow"} time={"2pm"} />
+      <Event
+        name={"argentina wins world cup"}
+        date={"all the time"}
+        time={"any time"}
+      />
     </div>
   );
 }

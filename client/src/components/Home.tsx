@@ -1,6 +1,5 @@
 import "../styles/home.css";
 import "../styles/style.css";
-import { Helmet } from "react-helmet";
 import { Modes } from "./mode";
 import { Dispatch, SetStateAction, useState, useEffect } from "react";
 interface HomeProps {
