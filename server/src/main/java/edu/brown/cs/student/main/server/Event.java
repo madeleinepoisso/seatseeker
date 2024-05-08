@@ -28,6 +28,10 @@ public class Event {
         //check if ticket matches up with event
         //ADD ALL THE OTHER STUFF NEEDED TO BE CHECKED BELOW
         if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
+            //compare similarity of names
+            if (similarity(this.name, ticket.name) < 0.3){
+                return false;
+            }
             String[] timeArray = ticket.time.split(":");
             String[] timeArrayActual = this.time.split(":");
             //below is code to give a leeway to starting time as was observed starting time can vary by 30 minutes
@@ -71,6 +75,54 @@ public class Event {
             }
         }
         return false;
+    }
+
+    //This takes information, calls the Levenshtein edit distance, and uses the returned number to calculate
+    // a percentage of how similar the phrases are.
+    // see https://stackoverflow.com/questions/955110/similarity-string-comparison-in-java
+    public double similarity(String s1, String s2) {
+        String longer = s1, shorter = s2;
+        // ensures that the variable longer gets the word of longer length
+        if (s1.length() < s2.length()) {
+            longer = s2; shorter = s1;
+        }
+        int longerLength = longer.length();
+        //if both strings don't have a length
+        if (longerLength == 0) {
+            return 1.0;
+        }
+        return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
+
+    }
+
+    // This is the Levenshtein Edit Distance - an algorithm that calculates and returns the minimum number of edits
+    // needed to be made to match the longer phrase to the shorter phrase
+    // See http://rosettacode.org/wiki/Levenshtein_distance#Java
+    public int editDistance(String s1, String s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+
+        int[] costs = new int[s2.length() + 1];
+        for (int i = 0; i <= s1.length(); i++) {
+            int lastValue = i;
+            for (int j = 0; j <= s2.length(); j++) {
+                if (i == 0)
+                    costs[j] = j;
+                else {
+                    if (j > 0) {
+                        int newValue = costs[j - 1];
+                        if (s1.charAt(i - 1) != s2.charAt(j - 1))
+                            newValue = Math.min(Math.min(newValue, lastValue),
+                                    costs[j]) + 1;
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0)
+                costs[s2.length()] = lastValue;
+        }
+        return costs[s2.length()];
     }
     public Integer price(){
         //need to fill this in to return the lowest price out of the tickets. should just be a simple for loop.
