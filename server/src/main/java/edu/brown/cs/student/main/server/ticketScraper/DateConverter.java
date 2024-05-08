@@ -16,9 +16,6 @@ public class DateConverter {
         }
         String[] parts = timeString.toLowerCase().split(":|(?<=\\d)(?=\\D)");
         parts[2] = parts[2].replace(" ","");
-        for (String part : parts){
-            System.out.println(part);
-        }
         // Parse hours and minutes
         int hours = Integer.parseInt(parts[0]);
         int minutes = Integer.parseInt(parts[1]);

@@ -28,20 +28,20 @@ public class QueryHandler implements Route {
                 query = query.replace(" ", "%20");
             }
             Scraper SH = new Stubhub();
-            Scraper SG = new SeatGeek();
-            Scraper VS  = new VividSeats();
+//            Scraper SG = new SeatGeek();
+//            Scraper VS  = new VividSeats();
             /**
              * We should do multithreading here to make this go faster
              * since there's no reason to wait for the prior scrapers
              * to return before running the next ones
              */
             List<Ticket> StubHubTix = SH.best(query);
-            List<Ticket> SeatGeekTix = SG.best(query);
-            List<Ticket> VividTix = VS.best(query);
+//            List<Ticket> SeatGeekTix = SG.best(query);
+//            List<Ticket> VividTix = VS.best(query);
             List<Event> events = new ArrayList<>();
             this.eventUpdate(StubHubTix, events);
-            this.eventUpdate(SeatGeekTix, events);
-            this.eventUpdate(VividTix,events);
+//            this.eventUpdate(SeatGeekTix, events);
+//            this.eventUpdate(VividTix,events);
             EventSorter sorter = new EventSorter();
             sorter.insertionSort(events);
             System.out.println(events.size());

@@ -1,11 +1,13 @@
 import { Ticket } from "./Ticket";
 import "../styles/Event.css";
 import emptyHeart from "../emptyheart.png";
+import { ReactElement, Fragment } from "react";
 
 interface EventProps {
   name: string;
   date: string;
   time: string;
+  tickets: ReactElement<typeof Ticket>[];
 }
 export function Event(props: EventProps) {
   return (
@@ -45,24 +47,9 @@ export function Event(props: EventProps) {
           {props.time}
         </span>
       </div>
-      <Ticket
-        price={140}
-        title={"event to attend so fun"}
-        seat={"first row"}
-        link={"https://www.google.com/"}
-      />
-      <Ticket
-        price={140}
-        title={"event to attend so fun"}
-        seat={"first row"}
-        link={"https://www.google.com/"}
-      />
-      <Ticket
-        price={140}
-        title={"event to attend so fun"}
-        seat={"first row"}
-        link={"https://www.google.com/"}
-      />
+      {props.tickets.map((ticket, index) => (
+        <Fragment key={index}>{ticket}</Fragment>
+      ))}
     </div>
   );
 }

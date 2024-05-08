@@ -4,14 +4,17 @@ import { Dispatch, SetStateAction } from "react";
 import { Event } from "./Event";
 import { Ticket } from "./Ticket";
 import "../styles/results.css";
+import { useState } from "react";
+import { ReactElement } from "react";
 interface ResultsProps {
   mode: Modes;
   setMode: Dispatch<SetStateAction<Modes>>;
   query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
 }
 export function Results(props: ResultsProps) {
+  const [events, setEvents] = useState<ReactElement<typeof Event>[]>([]);
   useEffect(() => {
-    console.log("Results component mounted");
     return () => {
       console.log("Results component unmounted");
     };
@@ -28,12 +31,7 @@ export function Results(props: ResultsProps) {
           backgroundColor: "transparent",
         }}
       ></div>
-      <Event name={"bla"} date={"tomorrow"} time={"2pm"} />
-      <Event
-        name={"argentina wins world cup"}
-        date={"all the time"}
-        time={"any time"}
-      />
+      //events go here
     </div>
   );
 }

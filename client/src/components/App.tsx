@@ -26,6 +26,7 @@ initializeApp(firebaseConfig);
 function App() {
   const [mode, setMode] = useState<Modes>(Modes.home);
   const [loggedIn, setLogin] = useState(false);
+  const [query, setQuery] = useState("");
 
   const CurrentScreen: (props: any) => React.JSX.Element = ScreenMap.get(mode)!;
 
@@ -66,8 +67,12 @@ function App() {
         </div>
       </div>
 
-      <CurrentScreen mode={mode} setMode={setMode} query={"boston celtics"} />
-
+      <CurrentScreen
+        mode={mode}
+        setMode={setMode}
+        query={query}
+        setQuery={setQuery}
+      />
     </div>
   );
 }

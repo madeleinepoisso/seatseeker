@@ -6,11 +6,12 @@ import { Dispatch, SetStateAction, useState, useEffect } from "react";
 interface HomeProps {
   mode: Modes;
   setMode: Dispatch<SetStateAction<Modes>>;
+  query: string;
+  setQuery: Dispatch<SetStateAction<string>>;
 }
 export function Home(props: HomeProps) {
-  const [commandString, setCommandString] = useState<string>("");
   const handleSubmit = async () => {
-    if (commandString === "") {
+    if (props.query === "") {
       return;
     }
     props.setMode(Modes.results);
@@ -30,8 +31,8 @@ export function Home(props: HomeProps) {
           </div>
           <div className="home-container17">
             <input
-              value={commandString}
-              onChange={(e) => setCommandString(e.target.value)}
+              value={props.query}
+              onChange={(e) => props.setQuery(e.target.value)}
               type="text"
               placeholder="enter keyword here"
               className="home-keyword-input input"
