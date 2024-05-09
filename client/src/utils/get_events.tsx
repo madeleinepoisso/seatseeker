@@ -50,7 +50,7 @@ export async function getEvents(
 }
 function getEventData(query: string, cityQuery: string, dateQuery: string, timeQuery: string): Promise<any> {
   return new Promise((resolve) => {
-    fetch("http://localhost:3232/query?query=" + query + "cityQuery=" + cityQuery + "dateQuery=" + dateQuery+ "timeQuery=" + timeQuery)
+    fetch("http://localhost:3232/query?query=" + query + "&cityQuery=" + cityQuery + "&dateQuery=" + dateQuery+ "&timeQuery=" + timeQuery)
       .then((response) => response.json())
       .then((json) => {
         const data = json.events;
