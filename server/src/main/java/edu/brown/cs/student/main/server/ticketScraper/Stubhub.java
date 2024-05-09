@@ -117,7 +117,14 @@ public class Stubhub implements Scraper {
         String date = events.get("2").get("items").get(i).get("formattedDate").asText();
         String time = events.get("2").get("items").get(i).get("formattedTime").asText();
         time = DateConverter.convertToMilitaryTime(time);
-        String city = events.get("2").get("items").get(i).get("formattedVenueLocation").asText().replace(", USA","");
+        String city =
+            events
+                .get("2")
+                .get("items")
+                .get(i)
+                .get("formattedVenueLocation")
+                .asText()
+                .replace(", USA", "");
         Ticket t = new Ticket(null, date, name, link, time, city, null);
         tickets.add(t);
       }

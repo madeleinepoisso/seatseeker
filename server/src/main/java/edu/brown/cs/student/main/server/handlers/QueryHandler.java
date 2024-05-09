@@ -40,12 +40,12 @@ public class QueryHandler implements Route {
              * to return before running the next ones
              */
             List<Ticket> StubHubTix = SH.best(query);
-            List<Ticket> SeatGeekTix = SG.best(query);
-            List<Ticket> VividTix = VS.best(query);
+//            List<Ticket> SeatGeekTix = SG.best(query);
+//            List<Ticket> VividTix = VS.best(query);
             List<Event> events = new ArrayList<>();
             this.eventUpdate(StubHubTix, events);
-            this.eventUpdate(SeatGeekTix, events);
-            this.eventUpdate(VividTix,events);
+//            this.eventUpdate(SeatGeekTix, events);
+//            this.eventUpdate(VividTix,events);
             EventSorter sorter = new EventSorter();
             sorter.insertionSort(events);
             System.out.println(events.size());

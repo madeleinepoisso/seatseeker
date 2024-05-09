@@ -40,7 +40,6 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
         <button
           className="home-sign-in button"
           onClick={() => signInWithGoogle()}
-          disabled={props.loggedIn}
         >
           Sign in
         </button>

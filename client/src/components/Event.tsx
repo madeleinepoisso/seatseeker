@@ -1,7 +1,10 @@
 import { Ticket } from "./Ticket";
 import "../styles/Event.css";
 import emptyHeart from "../emptyheart.png";
-import { ReactElement, Fragment } from "react";
+import filledHeart from "../filledheart.png";
+import { ReactElement, Fragment, useState } from "react";
+import { addSavedEvent, removeSavedEvent } from "../utils/api";
+import { Props } from "./App";
 
 interface EventProps {
   name: string;
@@ -10,11 +13,52 @@ interface EventProps {
   city: string;
   tickets: ReactElement<typeof Ticket>[];
 }
+const MyButton: React.FC<EventProps> = (props) => {
+  const [events, setEvents] = useState<EventProps[]>([]);
+  const [isSaved, setIsSaved] = useState(false);
+  const addFavoriteEvent = async () => {
+    // - update the client words state to include the new word
+    console.log(isSaved);
+    if (!isSaved) {
+      const eventToAdd: EventProps = {
+        name: props.name,
+        city: props.city,
+        date: props.date,
+        time: props.time,
+        tickets: [],
+      }
+      setEvents([...events, eventToAdd]);
+      console.log("event added");
+      // - query the backend to add the new word to the database
+      await addSavedEvent(props.name, props.city, props.date, props.time);
+    } else {
+      await removeSavedEvent(props.name, props.date, props.time);
+      console.log("event removed");
+    }
+    setIsSaved(!isSaved);
+  };
+  const handleSaveButtonClick = () => {
+    addFavoriteEvent();
+  };
+
+
+
+  return (
+    <button className="save-button" onClick={handleSaveButtonClick}>
+      <img src={isSaved ? filledHeart : emptyHeart} alt="Heart" />
+    </button>
+  );
+};
+
 export function Event(props: EventProps) {
   return (
     <div className="event-container">
       <div className="event-info">
-        <img src={emptyHeart} />
+        < MyButton name={props.name}
+          city={props.city}
+          date={props.date}
+          time={props.time}
+          tickets={[]} />
         <span
           style={{
             color: "#FFF",

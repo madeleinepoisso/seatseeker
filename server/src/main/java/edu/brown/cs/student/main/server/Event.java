@@ -14,18 +14,19 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 public class Event {
-    public String date;
-    public String time;
-    public String city;
-    public String name;
-    public List<Ticket> tickets;
-    public Event(String date, String time, String city, String name){
-        this.date = date;
-        this.time = time;
-        this.city = city;
-        this.name = name;
-        this.tickets = new ArrayList<>();
-    }
+  public String date;
+  public String time;
+  public String city;
+  public String name;
+  public List<Ticket> tickets;
+
+  public Event(String date, String time, String city, String name) {
+    this.date = date;
+    this.time = time;
+    this.city = city;
+    this.name = name;
+    this.tickets = new ArrayList<>();
+  }
 
     public boolean ticketAddBoolean(Ticket ticket){
         //if no tickets are in the list then it can be added

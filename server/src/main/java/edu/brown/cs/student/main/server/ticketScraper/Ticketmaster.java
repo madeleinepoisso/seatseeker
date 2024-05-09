@@ -9,7 +9,6 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
 public class Ticketmaster implements Scraper {
@@ -37,7 +36,7 @@ public class Ticketmaster implements Scraper {
       n = mapper.readTree(getData.html());
       JsonNode bla = n.get("props").get("pageProps");
       System.out.println(bla);
-    }catch (Exception e){
+    } catch (Exception e) {
       System.out.println("something went wrong reading json");
     }
     // Iterate over the elements using a regular for loop
