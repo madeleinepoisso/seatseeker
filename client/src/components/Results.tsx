@@ -10,10 +10,12 @@ import { Props } from "./App";
 import { getEvents } from "../utils/get_events";
 export function Results(props: Props) {
   const [events, setEvents] = useState<ReactElement<typeof Event>[]>([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (props.query === "") {
       return;
     }
+    setLoading(true);
     getEvents(
       props.query,
       props.cityQuery,
@@ -22,6 +24,7 @@ export function Results(props: Props) {
     ).then((events) => {
       console.log("in here again");
       setEvents(events);
+      setLoading(false);
       props.setQuery("");
       props.setCityQuery("");
       props.setDateQuery("");
@@ -45,9 +48,19 @@ export function Results(props: Props) {
           backgroundColor: "transparent",
         }}
       ></div>
-      {events.map((event, index) => (
-        <Fragment key={index}>{event}</Fragment>
-      ))}
+      {loading ? (
+        // Render a loading screen while waiting for events to load
+        <div className="loading-container">
+          <p className="event-title">Loading...</p>
+        </div>
+      ) : (
+        // Render the events once they are loaded
+        <div>
+          {events.map((event, index) => (
+            <Fragment key={index}>{event}</Fragment>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
