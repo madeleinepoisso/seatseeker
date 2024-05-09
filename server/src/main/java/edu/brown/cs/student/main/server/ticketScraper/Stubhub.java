@@ -24,11 +24,13 @@ public class Stubhub implements Scraper {
   @Override
   public List<Ticket> best(String query) {
     List<Ticket> t = getInfoGivenQuery(query);
-    if (t.size()>5){
+    while (t.size()>5){
       System.out.println(t.get(0).name);
       if (this.betterSimilarity(t.get(5).name,query)<0.5){
-        System.out.println("this name sucks" + t.get(5));
+        System.out.println("not similar enough");
         t = getInfoGivenQuery(query);
+      } else {
+        break;
       }
     }
 

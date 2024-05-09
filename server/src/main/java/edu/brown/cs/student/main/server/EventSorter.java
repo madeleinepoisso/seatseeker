@@ -116,7 +116,7 @@ public class EventSorter {
         return 0;
     }
 
-    public static ArrayList bucketSort(List<Event> events, String date, String time, String city) {
+    public static ArrayList<Event> bucketSort(List<Event> events, String date, String time, String city) {
         Event[] eventArray = events.toArray(new Event[0]);
         int n = events.size();
 
@@ -150,7 +150,7 @@ public class EventSorter {
                 index++;
             }
         }
-        return new ArrayList<>(
+        return new ArrayList<Event>(
                 Arrays.asList(Arrays.copyOfRange(eventArray, 0, Math.min(5, eventArray.length))));
     }
 }

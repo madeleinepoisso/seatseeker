@@ -29,8 +29,11 @@ public class QueryHandler implements Route {
                 query = query.replace(" ", "%20");
             }
             String cityQuery = request.queryParams("cityQuery");
+            System.out.println("cityQuery: " + cityQuery);
             String dateQuery = request.queryParams("dateQuery");
+            System.out.println("dateQuery:" + dateQuery);
             String timeQuery = request.queryParams("timeQuery");
+            System.out.println("timeQuery: " + timeQuery);
             Scraper SH = new Stubhub();
             Scraper SG = new SeatGeek();
             Scraper VS  = new VividSeats();
@@ -40,21 +43,21 @@ public class QueryHandler implements Route {
              * to return before running the next ones
              */
             List<Ticket> StubHubTix = SH.best(query);
-//            List<Ticket> SeatGeekTix = SG.best(query);
-//            List<Ticket> VividTix = VS.best(query);
+            List<Ticket> SeatGeekTix = SG.best(query);
+            List<Ticket> VividTix = VS.best(query);
             List<Event> events = new ArrayList<>();
             this.eventUpdate(StubHubTix, events);
-//            this.eventUpdate(SeatGeekTix, events);
-//            this.eventUpdate(VividTix,events);
+            this.eventUpdate(SeatGeekTix, events);
+            this.eventUpdate(VividTix,events);
             EventSorter sorter = new EventSorter();
-            sorter.insertionSort(events);
-            System.out.println(events.size());
-            for (Event event : events){
-                System.out.println(event.toString());
-                for (Ticket ticket : event.tickets){
-                    System.out.println(ticket.name);
-                }
-            }
+            events = sorter.bucketSort(events,dateQuery,timeQuery,cityQuery);
+//            System.out.println(events.size());
+//            for (Event event : events){
+//                System.out.println(event.toString());
+//                for (Ticket ticket : event.tickets){
+//                    System.out.println(ticket.name);
+//                }
+//            }
             ObjectMapper mapper = new ObjectMapper();
             String jsonEvents = mapper.writeValueAsString(events);
             responseMap.put("events",jsonEvents);
