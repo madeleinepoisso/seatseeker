@@ -51,7 +51,7 @@ export function Results(props: Props) {
       {loading ? (
         // Render a loading screen while waiting for events to load
         <div className="loading-container">
-          <p className="event-title">Loading...</p>
+          <p className="loading">Loading...</p>
         </div>
       ) : (
         // Render the events once they are loaded
