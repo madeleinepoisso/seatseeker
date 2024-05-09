@@ -45,6 +45,8 @@ export function Home(props: Props) {
         </div>
         <div className="home-container21">
           <input
+            value={props.cityQuery}
+            onChange={(e) => props.setCityQuery(e.target.value)}
             type="text"
             placeholder="city"
             className="home-textinput input"
@@ -52,6 +54,8 @@ export function Home(props: Props) {
         </div>
         <div className="home-container22">
           <input
+            value={props.dateQuery}
+            onChange={(e) => props.setDateQuery(e.target.value)}
             type="text"
             placeholder="date (ex. Jun 05)"
             className="home-textinput1 input"
@@ -59,12 +63,16 @@ export function Home(props: Props) {
         </div>
         <div className="home-container23">
           <input
+            value={props.timeQuery}
+            onChange={(e) => props.setTimeQuery(e.target.value)}
             type="text"
             placeholder="time (ex. 19:15)"
             className="home-textinput2 input"
           />
         </div>
-        <button className="home-button button">Search</button>
+        <button className="home-button button" onClick={handleSubmit}>
+          Search
+          </button>
       </div>
     </div>
   );
