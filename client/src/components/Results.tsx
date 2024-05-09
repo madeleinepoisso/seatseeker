@@ -14,10 +14,18 @@ export function Results(props: Props) {
     if (props.query === "") {
       return;
     }
-    getEvents(props.query).then((events) => {
-      console.log(props.query);
+    getEvents(
+      props.query,
+      props.cityQuery,
+      props.dateQuery,
+      props.timeQuery
+    ).then((events) => {
       console.log("in here again");
       setEvents(events);
+      props.setQuery("");
+      props.setCityQuery("");
+      props.setDateQuery("");
+      props.setTimeQuery("");
     });
     props.setQuery("");
 

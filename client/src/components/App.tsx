@@ -27,6 +27,12 @@ export interface Props {
   loggedIn: boolean;
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
+  cityQuery: string;
+  setCityQuery: Dispatch<SetStateAction<string>>;
+  dateQuery: string;
+  setDateQuery: Dispatch<SetStateAction<string>>;
+  timeQuery: string;
+  setTimeQuery: Dispatch<SetStateAction<string>>;
 }
 
 /**
@@ -36,6 +42,9 @@ function App() {
   const [mode, setMode] = useState<Modes>(Modes.home);
   const [loggedIn, setLogin] = useState(false);
   const [query, setQuery] = useState("");
+  const [cityQuery, setCityQuery] = useState("");
+  const [dateQuery, setDateQuery] = useState("");
+  const [timeQuery, setTimeQuery] = useState("");
 
   //fixed prop any
   const CurrentScreen: (props: Props) => React.JSX.Element =
@@ -78,6 +87,12 @@ function App() {
         loggedIn={loggedIn}
         query={query}
         setQuery={setQuery}
+        cityQuery={cityQuery}
+        setCityQuery={setCityQuery}
+        dateQuery={dateQuery}
+        setDateQuery={setDateQuery}
+        timeQuery={timeQuery}
+        setTimeQuery={setTimeQuery}
       />
     </div>
 

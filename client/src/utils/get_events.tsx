@@ -15,9 +15,9 @@ interface ticketDataProps {
   link: string;
 }
 export async function getEvents(
-  query: string
+  query: string, cityQuery: string, dateQuery: string, timeQuery: string
 ): Promise<ReactElement<typeof Event>[]> {
-  const events: EventData[] = await getEventData(query);
+  const events: EventData[] = await getEventData(query,cityQuery,dateQuery,timeQuery);
   console.log(events);
   const events_array: ReactElement<typeof Event>[] = [];
   for (const event of events) {
@@ -48,9 +48,9 @@ export async function getEvents(
   }
   return events_array;
 }
-function getEventData(query: string): Promise<any> {
+function getEventData(query: string, cityQuery: string, dateQuery: string, timeQuery: string): Promise<any> {
   return new Promise((resolve) => {
-    fetch("http://localhost:3232/query?query=" + query)
+    fetch("http://localhost:3232/query?query=" + query + "cityQuery=" + cityQuery + "dateQuery=" + dateQuery+ "timeQuery=" + timeQuery)
       .then((response) => response.json())
       .then((json) => {
         const data = json.events;
