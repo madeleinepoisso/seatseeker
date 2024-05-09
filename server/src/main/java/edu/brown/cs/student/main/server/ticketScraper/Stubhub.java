@@ -7,6 +7,14 @@ import edu.brown.cs.student.main.server.Ticket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,6 +24,13 @@ public class Stubhub implements Scraper {
   @Override
   public List<Ticket> best(String query) {
     List<Ticket> t = getInfoGivenQuery(query);
+    if (t.size()>5){
+      System.out.println(t.get(0).name);
+      if (this.betterSimilarity(t.get(5).name,query)<0.5){
+        t = getInfoGivenQuery(query);
+      }
+    }
+
     for (int i = 0; i < t.size(); i++) {
       this.setPriceAndSeat(t.get(i));
     }
@@ -112,7 +127,36 @@ public class Stubhub implements Scraper {
     }
     return null;
   }
+  public double betterSimilarity(String s1, String s2){
+    String requestBody = "{\"text_1\": \""+s1+"\", \"text_2\": \""+s2+"\"}";
+    String apiKey = "e99g/95mkS7Feg4vpDxCuQ==9szJCx6LadfZiMsh";
+    try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+      HttpPost request = new HttpPost("https://api.api-ninjas.com/v1/textsimilarity");
+      request.setHeader("Content-Type", "application/json");
+      request.setHeader("X-Api-Key", apiKey);
 
+      // Set request body
+      StringEntity entity = new StringEntity(requestBody);
+      request.setEntity(entity);
+
+      // Execute the request
+      HttpResponse response = httpClient.execute(request);
+
+      // Parse and print the response
+      HttpEntity httpEntity = response.getEntity();
+      if (httpEntity != null) {
+        String jsonResponse = EntityUtils.toString(httpEntity);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(jsonResponse);
+        double sim = jsonNode.get("similarity").asDouble();
+        return sim;
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+      return 0;
+    }
+    return 0.1;
+  }
   public static void main(String[] args) {
     List<Event> eventList = new ArrayList<>();
     Stubhub stubhub = new Stubhub();

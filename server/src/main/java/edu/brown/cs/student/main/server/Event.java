@@ -1,8 +1,18 @@
 package edu.brown.cs.student.main.server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 public class Event {
     public String date;
     public String time;
@@ -29,7 +39,8 @@ public class Event {
         //ADD ALL THE OTHER STUFF NEEDED TO BE CHECKED BELOW
         if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
             //compare similarity of names
-            if (similarity(this.name, ticket.name) < 0.3){
+            if (betterSimilarity(this.name, ticket.name) < 0.5){
+                System.out.println("better similarity not working");
                 return false;
             }
             String[] timeArray = ticket.time.split(":");
@@ -76,7 +87,36 @@ public class Event {
         }
         return false;
     }
+    public double betterSimilarity(String s1, String s2){
+        String requestBody = "{\"text_1\": \""+s1+"\", \"text_2\": \""+s2+"\"}";
+        String apiKey = "e99g/95mkS7Feg4vpDxCuQ==9szJCx6LadfZiMsh";
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpPost request = new HttpPost("https://api.api-ninjas.com/v1/textsimilarity");
+            request.setHeader("Content-Type", "application/json");
+            request.setHeader("X-Api-Key", apiKey);
 
+            // Set request body
+            StringEntity entity = new StringEntity(requestBody);
+            request.setEntity(entity);
+
+            // Execute the request
+            HttpResponse response = httpClient.execute(request);
+
+            // Parse and print the response
+            HttpEntity httpEntity = response.getEntity();
+            if (httpEntity != null) {
+                String jsonResponse = EntityUtils.toString(httpEntity);
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(jsonResponse);
+                double sim = jsonNode.get("similarity").asDouble();
+                return sim;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 0.1;
+    }
     //This takes information, calls the Levenshtein edit distance, and uses the returned number to calculate
     // a percentage of how similar the phrases are.
     // see https://stackoverflow.com/questions/955110/similarity-string-comparison-in-java
