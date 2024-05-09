@@ -41,7 +41,6 @@ public class Event {
         if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
             //compare similarity of names
             if (betterSimilarity(this.name, ticket.name) < 0.5){
-                System.out.println("better similarity not working");
                 return false;
             }
             String[] timeArray = ticket.time.split(":");
