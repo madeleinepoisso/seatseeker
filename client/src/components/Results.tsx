@@ -55,7 +55,7 @@ export function Results(props: Props) {
         </div>
       ) : (
         // Render the events once they are loaded
-        <div>
+        <div className="centered-div"> 
           {events.map((event, index) => (
             <Fragment key={index}>{event}</Fragment>
           ))}
