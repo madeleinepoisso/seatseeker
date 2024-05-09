@@ -15,10 +15,12 @@ export function Results(props: Props) {
       return;
     }
     getEvents(props.query).then((events) => {
+      console.log(props.query);
       console.log("in here again");
       setEvents(events);
-      props.setQuery("");
     });
+    props.setQuery("");
+
     return () => {
       console.log("Results component unmounted");
     };
