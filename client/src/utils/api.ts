@@ -36,6 +36,14 @@ export async function addSavedEvent(name: string, city: string, date: string, ti
     time: time
   });
 }
+export async function removeSavedEvent(name: string, date: string, time: string): Promise<any> {
+  return await queryAPI("remove-event", {
+    uid: getLoginCookie() || "",
+    name: name,
+    date: date,
+    time: time
+  });
+}
 
 /**
  * Retrieves pins from the API.

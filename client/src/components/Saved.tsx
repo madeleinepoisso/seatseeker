@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction } from "react";
 import { Event } from "./Event";
 import { Ticket } from "./Ticket";
 import "../styles/results.css";
-import { Props } from "./App";
+import "../styles/saved.css";
 import { getLoginCookie } from "../utils/cookie";
-import { getSavedEvents } from "../utils/api";
+import { getSavedEvents, removeSavedEvent } from "../utils/api";
 import { AuthErrorCodes } from "firebase/auth";
 
 interface Event {
@@ -19,6 +19,10 @@ interface Event {
 export function Saved(props: Event) {
   const [events, setEvents] = useState<Event[]>([]);
   const USER_ID = getLoginCookie() || "";
+  const handleRemoveEvent = async (name, date, time) => {
+    await removeSavedEvent(name, date, time);
+    console.log("event removed");
+  };
   useEffect(() => {
     getSavedEvents().then((data) => {
       console.log("Events data:", data.data);
@@ -26,12 +30,7 @@ export function Saved(props: Event) {
       console.log(data.data);
     });
     console.log("Events component mounted");
-    return () => {
-      console.log("Results component unmounted");
-    };
-  }, []);
-
-  console.log("Events:", events); // Log the events state
+  }, events);
 
   return (
     <div className="results-container">
@@ -48,7 +47,11 @@ export function Saved(props: Event) {
 
       {events && events.map((event, index) => (
         <div className="event-container">
+          <button className="remove-button" onClick={() => handleRemoveEvent(event.name, event.date, event.time)}>
+            Remove
+          </button>
           <div className="event-info">
+
             <span
               style={{
                 color: "#FFF",

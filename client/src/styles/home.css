@@ -401,3 +401,8 @@ body {
   border-width: 0px;
   background-color: rgb(79, 81, 140);
 }
+
+.save-button {
+  background-color: transparent;
+  border-width: 0;
+}

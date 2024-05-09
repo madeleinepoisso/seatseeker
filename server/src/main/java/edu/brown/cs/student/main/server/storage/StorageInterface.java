@@ -12,4 +12,7 @@ public interface StorageInterface {
       throws InterruptedException, ExecutionException;
 
   void clearUser(String uid) throws InterruptedException, ExecutionException;
+
+  void removeEvent(String uid, String name, String date, String time)
+      throws InterruptedException, ExecutionException;
 }

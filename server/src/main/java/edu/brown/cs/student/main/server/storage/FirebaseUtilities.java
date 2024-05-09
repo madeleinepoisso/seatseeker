@@ -2,10 +2,12 @@ package edu.brown.cs.student.main.server.storage;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import edu.brown.cs.student.main.server.Event;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -117,5 +119,40 @@ public class FirebaseUtilities implements StorageInterface {
     Firestore db = FirestoreClient.getFirestore();
     CollectionReference events = db.collection("users").document(uid).collection("events");
     events.listDocuments().forEach(document -> document.delete());
+  }
+
+  public void removeEvent(String uid, String eventName, String eventDate, String eventTime)
+      throws IllegalArgumentException, ExecutionException, InterruptedException {
+    if (uid == null || eventName == null || eventDate == null || eventTime == null) {
+      throw new IllegalArgumentException(
+          "removeEvent: uid, eventName, eventDate, and eventTime cannot be null");
+    }
+
+    Firestore db = FirestoreClient.getFirestore();
+    CollectionReference events = db.collection("users").document(uid).collection("events");
+
+    // Fetch all documents from the events collection
+    Iterable<DocumentReference> eventRefsIterable = events.listDocuments();
+
+    // Convert the iterable to a list
+    List<DocumentReference> eventRefs = new ArrayList<>();
+    for (DocumentReference eventRef : eventRefsIterable) {
+      eventRefs.add(eventRef);
+    }
+
+    // Iterate over each document
+    for (DocumentReference eventRef : eventRefs) {
+      // Fetch the event document
+      Event event = eventRef.get().get().toObject(Event.class);
+
+      // Check if the event matches the specified name, date, and time
+      if (event.name.equals(eventName)
+          && event.date.equals(eventDate)
+          && event.time.equals(eventTime)) {
+        // If the event matches, delete it and break the loop
+        eventRef.delete();
+        break;
+      }
+    }
   }
 }
