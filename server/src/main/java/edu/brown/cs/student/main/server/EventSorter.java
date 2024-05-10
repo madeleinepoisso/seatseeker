@@ -33,15 +33,15 @@ public class EventSorter {
 
       URL url1 = new URL(api_url1);
       HttpURLConnection connection1 = (HttpURLConnection) url1.openConnection();
-      connection1.connect();
       connection1.setRequestMethod("GET");
       connection1.setRequestProperty("Authorization", "JClbpgBLBGqlkM2vQerDbQ==E64E5q17qvCeNtCU");
+      connection1.connect();
 
       URL url2 = new URL(api_url2);
       HttpURLConnection connection2 = (HttpURLConnection) url2.openConnection();
-      connection2.connect();
       connection2.setRequestMethod("GET");
       connection2.setRequestProperty("Authorization", "JClbpgBLBGqlkM2vQerDbQ==E64E5q17qvCeNtCU");
+      connection2.connect();
 
       int responseCode1 = connection1.getResponseCode();
       int responseCode2 = connection2.getResponseCode();
@@ -151,7 +151,7 @@ public class EventSorter {
     }
 
     int index = 0;
-    for (int i = 0; i < buckets.length; i++) {
+    for (int i = 3; i > -1; i--) {
       for (int j = 0; j < buckets[i].size(); j++) {
         eventArray[index] = buckets[i].get(j);
         index++;
