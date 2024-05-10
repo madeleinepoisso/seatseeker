@@ -47,7 +47,7 @@ public class Event {
         //ADD ALL THE OTHER STUFF NEEDED TO BE CHECKED BELOW
         if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
             //compare similarity of names
-            if (betterSimilarity(this.name, ticket.name) < 0.5){
+            if (this.similarity(this.name, ticket.name) < 0.5){
                 return false;
             }
             String[] timeArray = ticket.time.split(":");

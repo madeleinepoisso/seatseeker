@@ -18,7 +18,7 @@ export function Ticket(props: ticketProps) {
       <div className="ticket-seat">
         <h1 className="ticket-text">{"title: " + props.title}</h1>
       </div>
-      <a href={props.link} className="ticket-hyperlink">
+      <a href={props.link} className="ticket-hyperlink" target="_blank">
         <img src={hyperlink}></img>
       </a>
     </div>

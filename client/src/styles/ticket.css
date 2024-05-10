@@ -35,6 +35,9 @@
 }
 
 .ticket-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-size: 20px;
   font-weight: 600;
   color: #2c2a4a;
