@@ -5,7 +5,9 @@ import edu.brown.cs.student.main.server.Event;
 import edu.brown.cs.student.main.server.EventSorter;
 import edu.brown.cs.student.main.server.Ticket;
 import edu.brown.cs.student.main.server.ticketScraper.Scraper;
+import edu.brown.cs.student.main.server.ticketScraper.SeatGeek;
 import edu.brown.cs.student.main.server.ticketScraper.Stubhub;
+import edu.brown.cs.student.main.server.ticketScraper.VividSeats;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,19 +34,19 @@ public class QueryHandler implements Route {
       String timeQuery = request.queryParams("timeQuery");
       System.out.println("timeQuery: " + timeQuery);
       Scraper SH = new Stubhub();
-      //      Scraper SG = new SeatGeek();
-      //      Scraper VS = new VividSeats();
+      Scraper SG = new SeatGeek();
+      Scraper VS = new VividSeats();
       /**
        * We should do multithreading here to make this go faster since there's no reason to wait for
        * the prior scrapers to return before running the next ones
        */
       List<Ticket> StubHubTix = SH.best(query);
-      //      List<Ticket> SeatGeekTix = SG.best(query);
-      //      List<Ticket> VividTix = VS.best(query);
+      List<Ticket> SeatGeekTix = SG.best(query);
+      List<Ticket> VividTix = VS.best(query);
       List<Event> events = new ArrayList<>();
       this.eventUpdate(StubHubTix, events);
-      //      this.eventUpdate(SeatGeekTix, events);
-      //      this.eventUpdate(VividTix, events);
+      this.eventUpdate(SeatGeekTix, events);
+      this.eventUpdate(VividTix, events);
       EventSorter sorter = new EventSorter();
       events = sorter.bucketSort(events, dateQuery, timeQuery, cityQuery);
       //            System.out.println(events.size());
