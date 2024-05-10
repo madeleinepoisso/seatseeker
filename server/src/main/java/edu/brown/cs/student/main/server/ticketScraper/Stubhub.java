@@ -7,7 +7,6 @@ import edu.brown.cs.student.main.server.Ticket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -24,9 +23,9 @@ public class Stubhub implements Scraper {
   @Override
   public List<Ticket> best(String query) {
     List<Ticket> t = getInfoGivenQuery(query);
-    while (t.size()>5){
+    while (t.size() > 5) {
       System.out.println(t.get(0).name);
-      if (this.betterSimilarity(t.get(5).name,query)<0.5){
+      if (this.betterSimilarity(t.get(5).name, query) < 0.5) {
         System.out.println("not similar enough");
         t = getInfoGivenQuery(query);
       } else {
@@ -137,8 +136,9 @@ public class Stubhub implements Scraper {
     }
     return null;
   }
-  public double betterSimilarity(String s1, String s2){
-    String requestBody = "{\"text_1\": \""+s1+"\", \"text_2\": \""+s2+"\"}";
+
+  public double betterSimilarity(String s1, String s2) {
+    String requestBody = "{\"text_1\": \"" + s1 + "\", \"text_2\": \"" + s2 + "\"}";
     String apiKey = "e99g/95mkS7Feg4vpDxCuQ==9szJCx6LadfZiMsh";
     try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
       HttpPost request = new HttpPost("https://api.api-ninjas.com/v1/textsimilarity");
@@ -167,6 +167,7 @@ public class Stubhub implements Scraper {
     }
     return 0.1;
   }
+
   public static void main(String[] args) {
     List<Event> eventList = new ArrayList<>();
     Stubhub stubhub = new Stubhub();

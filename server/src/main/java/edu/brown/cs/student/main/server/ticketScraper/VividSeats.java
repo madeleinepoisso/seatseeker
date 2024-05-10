@@ -145,7 +145,7 @@ public class VividSeats implements Scraper {
       System.out.println(e);
       System.out.println("error getting query");
     }
-    try{
+    try {
       String json = doc.selectFirst("script[id=__NEXT_DATA__]").html();
       ObjectMapper mapper = new ObjectMapper();
       JsonNode node = mapper.readTree(json);
