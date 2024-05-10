@@ -405,4 +405,5 @@ body {
 .save-button {
   background-color: transparent;
   border-width: 0;
+  z-index: 9999;
 }

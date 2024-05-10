@@ -27,6 +27,13 @@ public class Event {
     this.name = name;
     this.tickets = new ArrayList<>();
   }
+    public Event() {
+        this.date = "";
+        this.time = "";
+        this.city = "";
+        this.name = "";
+        this.tickets = new ArrayList<>();
+    }
 
     public boolean ticketAddBoolean(Ticket ticket){
         //if no tickets are in the list then it can be added

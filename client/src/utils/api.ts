@@ -27,21 +27,30 @@ async function queryAPI(
  * @param latitude - The latitude of the pin.
  * @returns A promise that resolves to the response from the API.
  */
-export async function addSavedEvent(name: string, city: string, date: string, time: string): Promise<any> {
+export async function addSavedEvent(
+  name: string,
+  city: string,
+  date: string,
+  time: string
+): Promise<any> {
   return await queryAPI("add-events", {
     uid: getLoginCookie() || "",
     name: name,
     city: city,
     date: date,
-    time: time
+    time: time,
   });
 }
-export async function removeSavedEvent(name: string, date: string, time: string): Promise<any> {
+export async function removeSavedEvent(
+  name: string,
+  date: string,
+  time: string
+): Promise<any> {
   return await queryAPI("remove-event", {
     uid: getLoginCookie() || "",
     name: name,
     date: date,
-    time: time
+    time: time,
   });
 }
 
@@ -55,13 +64,14 @@ export async function getSavedEvents(): Promise<any> {
   });
 }
 
-
 /**
  * Clears pins associated with the specified user ID from the API.
  * @param uid - The user ID for which pins need to be cleared. Defaults to the logged-in user's ID if not provided.
  * @returns A promise that resolves to the response from the API.
  */
-export async function clearPins(uid: string = getLoginCookie() || ""): Promise<any> {
+export async function clearPins(
+  uid: string = getLoginCookie() || ""
+): Promise<any> {
   return await queryAPI("clear-events", {
     uid: uid,
   });
