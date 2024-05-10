@@ -55,7 +55,7 @@ public class Event {
                 int upperHour = hour;
                 int lowerMin = min - 30;
                 int lowerHour = hour;
-                if (upperMin > 60){
+                if (upperMin >= 60){
                     upperMin = upperMin - 60;
                     upperHour = upperHour + 1;
                 }
@@ -63,6 +63,10 @@ public class Event {
                     lowerMin = lowerMin + 60;
                     lowerHour = lowerHour - 1;
                 }
+                System.out.println(lowerHour);
+                System.out.println(lowerMin);
+                System.out.println(upperHour);
+                System.out.println(upperMin);
                 if (lowerHour == actHour && actMin >= lowerMin){
                     return true;
                 } else if (upperHour == actHour && actMin <= upperMin) {
