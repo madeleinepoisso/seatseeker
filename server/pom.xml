@@ -103,6 +103,12 @@
       <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -232,7 +238,7 @@
       </plugin>
 
       <!-- The Surefire Plugin is used during the test phase of
-      the build lifecycle to execute the unit tests of an application.
+      the build lifecycle to execute the unit Testing.java of an application.
       It generates reports in TXT and XML formats. -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -342,7 +348,7 @@
 
       <!--
           JaCoCo creates a "coverage" report, so you can see what
-          lines of codes and branches your tests exercise.
+          lines of codes and branches your Testing.java exercise.
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
