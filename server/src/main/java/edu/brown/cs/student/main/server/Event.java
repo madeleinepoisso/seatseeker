@@ -48,7 +48,8 @@ public class Event {
         //ADD ALL THE OTHER STUFF NEEDED TO BE CHECKED BELOW
         if (ticket.date.equals(this.date) && ticket.city.equals(this.city)){
             //compare similarity of names
-            if (this.similarity(this.name, ticket.name) < 0.5){
+            if (this.betterSimilarity(this.name, ticket.name) < 0.5){
+                System.out.println("not similar");
                 return false;
             }
             String[] timeArray = ticket.time.split(":");
@@ -71,10 +72,6 @@ public class Event {
                     lowerMin = lowerMin + 60;
                     lowerHour = lowerHour - 1;
                 }
-                System.out.println(lowerHour);
-                System.out.println(lowerMin);
-                System.out.println(upperHour);
-                System.out.println(upperMin);
                 if (lowerHour == actHour && actMin >= lowerMin){
                     return true;
                 } else if (upperHour == actHour && actMin <= upperMin) {

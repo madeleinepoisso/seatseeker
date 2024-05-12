@@ -138,8 +138,10 @@ public class EventSorter {
           val++;
         }
       }
+      String[] parts = (eventArray[i].city).split(", ");
+      String cityName = parts[0];
       if (city != null) {
-        if (withinRange(city, eventArray[i].city) == 1) {
+        if (withinRange(city, cityName) == 1 || cityName.equals(city)) {
           val++;
         }
       }
