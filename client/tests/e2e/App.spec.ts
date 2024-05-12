@@ -10,6 +10,9 @@ import { clearPins } from "../../src/utils/api";
  */
 
 const SPOOF_UID = "mock-user-id";
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 test.beforeEach(
   "add spoof uid cookie to browser",
@@ -24,75 +27,80 @@ test.beforeEach(
     ]);
 
     // wipe everything for this spoofed UID in the database.
-    await clearPins(SPOOF_UID);
+    //await clearE(SPOOF_UID);
   }
 );
 
-test("check that the elements is visible upon load", async ({
+test("check items on load", async ({
   page,
 }) => {
   await page.goto("http://localhost:8000/");
-  await expect(page.locator('.mapboxgl-map')).toBeVisible();
-  await expect(page.locator('button.SignOut')).toBeVisible();
-  await expect(page.locator('.repl-input')).toBeVisible();
-  await expect(page.locator('input.repl-command-box')).toBeVisible();
-  await expect(page.locator('button[aria-label="Submit Command Button"]')).toBeVisible();
-  await expect(page.locator('button:text("Clear Pins")')).toBeVisible();
-  //add some tests to check that all the fields are visible
-  
-  });
-  
+  await expect(page.getByTestId("compare")).toBeVisible();
+  await expect(page.getByTestId("sign-out")).toBeVisible();
+  await expect(page.getByTestId("save-events")).toBeVisible();
+  await expect(page.getByTestId("seatseeker")).toBeVisible();
 
-test("testing submitting consecutive key words", async ({ page }) => {
+
+});
+
+test("sign out removes saved events tab", async ({
+  page,
+}) => {
+  await page.goto("http://localhost:8000/");
+  await expect(page.getByTestId("compare")).toBeVisible();
+  await expect(page.getByTestId("sign-out")).toBeVisible();
+  await expect(page.getByTestId("save-events")).toBeVisible();
+  await expect(page.getByTestId("seatseeker")).toBeVisible();
+  await (page.getByTestId("sign-out")).click();
+  await expect(page.getByTestId("save-events")).toBeHidden();
+
+
+
+});
+
+test("search brings to loading and result page", async ({ page }) => {
   await page.goto('http://localhost:8000/');
-  await page.fill('input[placeholder="Enter command here!"]', 'brooks');
-  await page.getByRole("button", { name: "Submit" }).click();
-  const inputField = page.locator('input[placeholder="Enter command here!"]');
-  await expect(inputField).toBeVisible();
-  await expect(inputField).toBeEnabled();
-  await expect(inputField).toHaveValue('');
-  await page.fill('input[placeholder="Enter command here!"]', 'foreign');
-  await page.getByRole("button", { name: "Submit" }).click();
-  await expect(inputField).toBeVisible();
-  await expect(inputField).toBeEnabled();
-  await expect(inputField).toHaveValue('');
+  await page.getByPlaceholder('enter keyword here').click();
+  await page.getByPlaceholder('enter keyword here').fill('celtics');
+  await page.locator('div').filter({ hasText: /^Search$/ }).getByRole('button').click();
+  await expect(page.getByText('Loading...')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Events' })).toBeVisible();
+  await wait(15000)
+  await expect(page.locator('.event-container').first()).toBeVisible();
+
+
 });
 
-test("clearing of pins", async ({ page }) => {
+test("saved events page", async ({ page }) => {
   await page.goto("http://localhost:8000/");
-  await page.getByLabel('Map', { exact: true }).click({ position: { x: 848, y: 211 } });
-  await expect(page.locator('path').first()).toBeVisible();
-  await page.getByLabel('Map', { exact: true }).click({ position: { x: 896, y: 203 } });
-  await expect(page.locator('path').nth(2)).toBeVisible();
-  await page.getByRole('button', { name: 'Clear Pins' }).click();
-  await expect(page.locator('path').first()).not.toBeVisible();
-  await expect(page.locator('path').nth(2)).not.toBeVisible({ timeout: 5000 });
- 
+  await (page.getByTestId("save-events")).click();
+  await expect(page.getByTestId("saved-title")).toBeVisible();
+
 });
 
-test("pins stay upon relaod", async ({ page }) => {
+test("saved events page with event saved", async ({ page }) => {
+  await page.goto('http://localhost:8000/');
+  await page.getByPlaceholder('enter keyword here').click();
+  await page.getByPlaceholder('enter keyword here').fill('argentina vs chile');
+  await page.locator('div').filter({ hasText: /^Search$/ }).getByRole('button').click();
+  await expect(page.getByText('Loading...')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Events' })).toBeVisible();
+  await wait(25000)
+  await expect(page.locator('.event-container').first()).toBeVisible();
+  await page.getByTestId('heart').first().click();
+  await (page.getByTestId("save-events")).click();
+  //await wait(2000)
+  await expect(page.getByTestId("saved-event").first()).toBeVisible();
+
+});
+
+test("events stay upon reload", async ({ page }) => {
   await page.goto("http://localhost:8000/");
+  await (page.getByTestId("save-events")).click();
+  await expect(page.getByTestId("saved-event").first()).toBeVisible();
+  await page.goto("http://localhost:8000/");
+  await (page.getByTestId("save-events")).click();
+  await expect(page.getByTestId("saved-event").first()).toBeVisible();
 
 
-await page.getByLabel('Map', { exact: true }).click({
-  position: {
-    x: 881,
-    y: 214
-  }
-});
-await page.getByLabel('Map', { exact: true }).click({
-  position: {
-    x: 810,
-    y: 295
-  }
-});
-await page.getByLabel('Map', { exact: true }).click({
-  position: {
-    x: 1085,
-    y: 393
-  }
-});
-await expect(page.locator('div:nth-child(3) > svg > path').first()).toBeVisible();
-await page.goto('http://localhost:8000/');
-await expect(page.locator('div:nth-child(3) > svg > path').first()).toBeVisible();
 });

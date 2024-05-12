@@ -63,14 +63,14 @@ function App() {
       </Helmet>
       <div className="home-header">
         <a href={"http://localhost:8000/"} className="pressable-thingy">
-          <h1 className="home-seat-seeker">SeatSeeker</h1>
+          <h1 className="home-seat-seeker" data-testid="seatseeker">SeatSeeker</h1>
         </a>
         <div className="home-container01">
           <div className="home-container02">
             <div className="home-container03"></div>
             <div className="home-container04">
               <div className="home-container05"></div>
-              <span className="home-compare-ticket">
+              <span className="home-compare-ticket" data-testid="compare" >
                 Compare ticket prices with a single click
               </span>
             </div>

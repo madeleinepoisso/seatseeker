@@ -44,7 +44,7 @@ const MyButton: React.FC<EventProps> = (props) => {
 
 
   return (
-    <button className="save-button" onClick={handleSaveButtonClick}>
+    <button className="save-button" data-testid="heart" onClick={handleSaveButtonClick}>
       <img src={isSaved ? filledHeart : emptyHeart} alt="Heart" />
     </button>
   );
@@ -52,7 +52,7 @@ const MyButton: React.FC<EventProps> = (props) => {
 
 export function Event(props: EventProps) {
   return (
-    <div className="event-container">
+    <div className="event-container" data-testid="event-box">
       <div className="event-info">
         < MyButton name={props.name}
           city={props.city}

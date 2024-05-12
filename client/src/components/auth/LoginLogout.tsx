@@ -38,7 +38,7 @@ const Login: React.FunctionComponent<ILoginPageProps> = (props) => {
     <div className="home-container07">
       <div className="home-container08">
         <button
-          className="home-sign-in button"
+          className="home-sign-in button" data-testid="sign-in"
           onClick={() => signInWithGoogle()}
         >
           Sign in
@@ -65,13 +65,13 @@ const Logout: React.FunctionComponent<ILoginPageProps> = (props) => {
 
     <div className="home-container07">
       <div className="home-container08">
-        <button className="home-sign-in button" onClick={() => signOut()}>
+        <button className="home-sign-in button" data-testid="sign-out" onClick={() => signOut()}>
           Sign Out
         </button>
       </div>
       <div className="home-container12">
         <span className="home-to-save">
-          <button className="home-saved button" onClick={() => props.setMode(Modes.saved)}>
+          <button className="home-saved button" data-testid="save-events" onClick={() => props.setMode(Modes.saved)}>
             Saved Events
           </button>
         </span>

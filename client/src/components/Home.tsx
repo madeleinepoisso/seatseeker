@@ -16,7 +16,7 @@ export function Home(props: Props) {
     }
   };
   return (
-    <div className="home-container">
+    <div className="home-container" >
       <div className="home-container13">
         <div className="home-container14">
           <div className="home-container15">
@@ -72,7 +72,7 @@ export function Home(props: Props) {
         </div>
         <button className="home-button button" onClick={handleSubmit}>
           Search
-          </button>
+        </button>
       </div>
     </div>
   );

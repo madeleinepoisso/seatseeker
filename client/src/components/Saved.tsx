@@ -40,7 +40,7 @@ export function Saved(props: Event) {
   return (
     <div className="results-container">
       <div className="event-title-container">
-        <h1 className="event-title">Saved Events</h1>
+        <h1 className="event-title" data-testid="saved-title">Saved Events</h1>
       </div>
       <div
         style={{
@@ -52,7 +52,7 @@ export function Saved(props: Event) {
 
       {events &&
         events.map((event, index) => (
-          <div className="event-container">
+          <div className="event-container" data-testid="saved-event">
             <button
               className="remove-button"
               onClick={() =>
