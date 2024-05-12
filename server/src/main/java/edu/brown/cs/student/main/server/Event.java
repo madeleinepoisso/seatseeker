@@ -72,6 +72,12 @@ public class Event {
                     lowerMin = lowerMin + 60;
                     lowerHour = lowerHour - 1;
                 }
+                if (lowerHour < 0){
+                    lowerHour = 23;
+                }
+                if (upperHour >= 24){
+                    upperHour = 0;
+                }
                 if (lowerHour == actHour && actMin >= lowerMin){
                     return true;
                 } else if (upperHour == actHour && actMin <= upperMin) {
